@@ -1,0 +1,26 @@
+﻿CREATE TABLE [dbo].[UserGroup](
+	[UserId] [int] NOT NULL,
+	[GroupId] [int] NOT NULL,
+	[Created] [datetime2](7) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[UserId] ASC,
+	[GroupId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+ALTER TABLE [dbo].[UserGroup]  WITH CHECK ADD  CONSTRAINT [FK_UserGroup_GroupId] FOREIGN KEY([GroupId])
+REFERENCES [dbo].[Group] ([Id])
+GO
+
+ALTER TABLE [dbo].[UserGroup] CHECK CONSTRAINT [FK_UserGroup_GroupId]
+GO
+
+ALTER TABLE [dbo].[UserGroup]  WITH CHECK ADD  CONSTRAINT [FK_UserGroup_UserId] FOREIGN KEY([UserId])
+REFERENCES [dbo].[User] ([Id])
+GO
+
+ALTER TABLE [dbo].[UserGroup] CHECK CONSTRAINT [FK_UserGroup_UserId]
+GO

@@ -1,0 +1,7 @@
+﻿CREATE TABLE [dbo].[Role]
+(
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY, 
+    [Name] NVARCHAR(50) NULL, 
+    [Remark] NVARCHAR(50) NULL,
+    [Created] DATETIME2 NULL
+)

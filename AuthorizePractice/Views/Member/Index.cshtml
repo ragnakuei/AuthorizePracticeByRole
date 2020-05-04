@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = "Index";
+
+    var identity = HttpContext.Current.User.Identity as FormsIdentity;
+    var user = identity?.Name;
+}
+
+<h2>Index</h2>
+
+<p>User:@(user)</p>
+
+<p>ViewBag.user:@(ViewBag.user)</p>
+
+<p>IsAuthenticated:@(identity?.IsAuthenticated)</p>
+
+<p>UserData:@(identity?.Ticket?.UserData)</p>

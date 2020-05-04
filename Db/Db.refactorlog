@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="36024e9a-b410-416f-a325-963c9244aef2" ChangeDateTime="06/07/2018 04:24:21">
+    <Property Name="ElementName" Value="[dbo].[User].[IX_User_Column]" />
+    <Property Name="ElementType" Value="SqlIndex" />
+    <Property Name="ParentElementName" Value="[dbo].[User]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[IX_User_Account_Password]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="29e46954-b997-4a17-bb5d-94eca690e4b1" ChangeDateTime="06/07/2018 04:26:12">
+    <Property Name="ElementName" Value="[dbo].[Group].[IX_Group_Column]" />
+    <Property Name="ElementType" Value="SqlIndex" />
+    <Property Name="ParentElementName" Value="[dbo].[Group]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[IX_Group_Name]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="90df3fa6-884c-461e-9673-c29632da9633" ChangeDateTime="06/07/2018 07:22:43">
+    <Property Name="ElementName" Value="[dbo].[UserRole].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[UserRole]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="UserId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="ae343688-9c5e-416a-9310-f6a0a13aa9e0" ChangeDateTime="06/07/2018 07:28:07">
+    <Property Name="ElementName" Value="[dbo].[UserRole].[IX_UserRole_Column]" />
+    <Property Name="ElementType" Value="SqlIndex" />
+    <Property Name="ParentElementName" Value="[dbo].[UserRole]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[IX_UserRole_GroupId_UserId]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="336f41b6-8a15-4188-8a2c-b9261bfbbf4b" ChangeDateTime="06/07/2018 07:28:10">
+    <Property Name="ElementName" Value="[dbo].[UserRole].[RoleId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[UserRole]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="GroupId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="ed49e12d-1831-49ea-81fd-c391d07df4a9" ChangeDateTime="06/07/2018 07:28:49">
+    <Property Name="ElementName" Value="[dbo].[UserGroup].[IX_UserGroup_Column]" />
+    <Property Name="ElementType" Value="SqlIndex" />
+    <Property Name="ParentElementName" Value="[dbo].[UserGroup]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[IX_UserGroup_GroupId_UserId]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="c057480d-d177-4df0-853e-9ef8eeebc137" ChangeDateTime="06/07/2018 12:25:27">
+    <Property Name="ElementName" Value="[dbo].[FK_UserGroup_ToTable]" />
+    <Property Name="ElementType" Value="SqlForeignKeyConstraint" />
+    <Property Name="ParentElementName" Value="[dbo].[UserGroup]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[FK_UserGroup_UserId]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="338b85dc-bdfc-4488-8688-577414c767db" ChangeDateTime="06/07/2018 12:25:36">
+    <Property Name="ElementName" Value="[dbo].[FK_UserGroup_ToTable]" />
+    <Property Name="ElementType" Value="SqlForeignKeyConstraint" />
+    <Property Name="ParentElementName" Value="[dbo].[UserGroup]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[FK_UserGroup_GroupId]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="c264ff64-b3ed-463c-af45-86b979e4e15f" ChangeDateTime="06/08/2018 14:43:16">
+    <Property Name="ElementName" Value="[dbo].[FK_RouteRole_ToTable]" />
+    <Property Name="ElementType" Value="SqlForeignKeyConstraint" />
+    <Property Name="ParentElementName" Value="[dbo].[RouteRole]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[FK_RouteRole_RoleId]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="494a63e5-506d-4b6f-8932-869fbaa89867" ChangeDateTime="06/10/2018 13:05:44">
+    <Property Name="ElementName" Value="[dbo].[Route].[IX_Route_Column]" />
+    <Property Name="ElementType" Value="SqlIndex" />
+    <Property Name="ParentElementName" Value="[dbo].[Route]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[IX_Route_Controller_Action]" />
+  </Operation>
+</Operations>
