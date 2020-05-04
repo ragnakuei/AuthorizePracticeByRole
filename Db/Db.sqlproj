@@ -66,9 +66,6 @@
     <Build Include="Tables\Role.sql" />
     <Build Include="Tables\UserGroup.sql" />
     <Build Include="Tables\GroupRole.sql" />
-    <Build Include="Tables\Function.sql" />
-    <Build Include="Tables\Action.sql" />
-    <Build Include="Tables\RoleFunctionAction.sql" />
     <PostDeploy Include="SeedData\SeedData.sql" />
   </ItemGroup>
   <ItemGroup>

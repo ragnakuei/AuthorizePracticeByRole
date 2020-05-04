@@ -37,7 +37,7 @@ namespace AuthorizePractice.DI
             var service = new ServiceCollection();
 
             service.AddDbContext<AccountDbContext>(options => options
-                                                             .UseSqlServer(ConfigurationManager.ConnectionStrings["AuthorizePractice"].ConnectionString)
+                                                             .UseSqlServer(ConfigurationManager.ConnectionStrings["AuthorizePracticeByRole"].ConnectionString)
                                                              .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking),
                                                    ServiceLifetime.Scoped,
                                                    ServiceLifetime.Scoped);

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2018
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthorizePractice", "AuthorizePractice\AuthorizePractice.csproj", "{5E76A6C0-B48D-4F6D-8B51-79C263E3DE20}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthorizePracticeByRole", "AuthorizePracticeByRole\AuthorizePracticeByRole.csproj", "{5E76A6C0-B48D-4F6D-8B51-79C263E3DE20}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{2BC059E3-7E1E-4464-98FC-5BD456D5120B}"
 EndProject
