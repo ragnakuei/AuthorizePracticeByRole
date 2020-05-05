@@ -1,51 +1,32 @@
 ﻿using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using DAL.EF;
 using DAL.Entities;
-using Microsoft.EntityFrameworkCore;
+using Dapper;
 using SharedLibrary.Helpers;
 using SharedLibrary.Models;
 
 namespace DAL.Repository
 {
-    public class AuthorizeRepository : IAuthorizeRepository
+    public class AuthorizeRepository : BaseRepository, IAuthorizeRepository
     {
-        private readonly AuthorizePracticeDbContext _dbContext;
-
-        public AuthorizeRepository(AuthorizePracticeDbContext dbContext)
-        {
-            _dbContext = dbContext;
-        }
-
         public bool Auth(AuthorizationDto dto)
         {
-            var userId = new SqlParameter
-                         {
-                             ParameterName = "@UserId",
-                             DbType        = DbType.Int32,
-                             IsNullable    = false,
-                             Value         = dto.UserId
-                         };
+            var sqlScript = "EXECUTE [dbo].[usp_AuthorizeUserIdRoles] @userId, @roles";
+            var parameters = new DynamicParameters();
+            parameters.Add("userId", dto.UserId, DbType.Int32);
 
             var rolesDataTable = new DataTableStringWithSerialGenerator("Value");
             rolesDataTable.AddRange(dto.AttributeRoles);
+            parameters.Add("roles", rolesDataTable.Result.AsTableValuedParameter("[dbo].[Nvarchar1000]") );
 
-            var roles = new SqlParameter
-                        {
-                            ParameterName = "@Roles",
-                            SqlDbType     = SqlDbType.Structured,
-                            Value         = rolesDataTable.Result,
-                            TypeName      = "[dbo].[Nvarchar1000]"
-                        };
-
-            var result = _dbContext.AuthResultDtos
-                                   .FromSqlInterpolated($"EXECUTE [dbo].[usp_AuthorizeUserIdRoles] {userId}, {roles}")
-                                   .AsEnumerable()
-                                   .FirstOrDefault(r => r.UserId == dto.UserId)
-                                  ?.AuthResult;
-
-            return result ?? false;
+            using (var conn = new SqlConnection(ConnectionString))
+            {
+                var result = conn.Query<AuthResultDto>(sqlScript, parameters)
+                                 .FirstOrDefault(r => r.UserId == dto.UserId)
+                                ?.AuthResult;
+                return result ?? false;
+            }
         }
     }
 }

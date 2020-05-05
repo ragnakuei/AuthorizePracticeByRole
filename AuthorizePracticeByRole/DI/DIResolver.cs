@@ -6,7 +6,6 @@ using System.Reflection;
 using System.Web.Mvc;
 using AuthorizePractice.Controllers;
 using DAL.Repository;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AuthorizePractice.DI

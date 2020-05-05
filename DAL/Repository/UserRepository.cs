@@ -1,7 +1,7 @@
-﻿using System.Data.SqlClient;
+﻿using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using Dapper;
-using Microsoft.EntityFrameworkCore.Storage.Internal;
 using SharedLibrary.Models;
 
 namespace DAL.Repository
@@ -10,30 +10,36 @@ namespace DAL.Repository
     {
         public UserDto Validate(string account, string password)
         {
-            var sqlScript = @"";
+            var sqlScript = @"
+SELECT [U].[id] AS [UserId],
+       [U].[Account],
+       [U].[Name],
+       [U].[Created]
+FROM [dbo].[User] [U]
+WHERE [U].[Account] = @account
+  AND [U].[Password] = @password
+
+SELECT [R].[Name]
+FROM [dbo].[User] [U]
+    JOIN [UserGroup] [UG]
+         ON [U].[Id] = [UG].[UserId]
+    JOIN [GroupRole] [GR]
+         ON [UG].[GroupId] = [GR].[GroupId]
+    JOIN [Role] [R]
+         ON [GR].[RoleId] = [R].[Id]
+WHERE [U].[Account] = @account
+  AND [U].[Password] = @password";
             var parameters = new DynamicParameters();
-            
+            parameters.Add("account",  account,  DbType.String, size : 50);
+            parameters.Add("password", password, DbType.String, size : 100);
+
             using (var conn = new SqlConnection(ConnectionString))
             {
-                var result = conn.Query<UserDto>(sqlScript, ).ToList();
+                var reader = conn.QueryMultiple(sqlScript, parameters);
+                var result = reader.Read<UserDto>().FirstOrDefault();
+                result.Roles = reader.Read<string>().ToArray();
+                return result;
             }
-            
-            var user = _dbContext.User
-                                 .Where(u => u.Account  == account
-                                          && u.Password == password)
-                                 .Select(u => new UserDto
-                                              {
-                                                  UserId      = u.Id,
-                                                  Account = u.Account,
-                                                  Name    = u.Name,
-                                                  Created = u.Created,
-                                                  Roles = u.UserGroups
-                                                           .SelectMany(ug => ug.Group.GroupRoles)
-                                                           .Select(gr => gr.Role.Name)
-                                                           .ToArray()
-                                              })
-                                 .FirstOrDefault();
-            return user;
         }
     }
 }
