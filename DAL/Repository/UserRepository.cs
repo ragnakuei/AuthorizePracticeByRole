@@ -1,20 +1,23 @@
-﻿using System.Linq;
-using DAL.EF;
+﻿using System.Data.SqlClient;
+using System.Linq;
+using Dapper;
+using Microsoft.EntityFrameworkCore.Storage.Internal;
 using SharedLibrary.Models;
 
 namespace DAL.Repository
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository : BaseRepository, IUserRepository
     {
-        private readonly AccountDbContext _dbContext;
-
-        public UserRepository(AccountDbContext dbContext)
-        {
-            _dbContext = dbContext;
-        }
-
         public UserDto Validate(string account, string password)
         {
+            var sqlScript = @"";
+            var parameters = new DynamicParameters();
+            
+            using (var conn = new SqlConnection(ConnectionString))
+            {
+                var result = conn.Query<UserDto>(sqlScript, ).ToList();
+            }
+            
             var user = _dbContext.User
                                  .Where(u => u.Account  == account
                                           && u.Password == password)

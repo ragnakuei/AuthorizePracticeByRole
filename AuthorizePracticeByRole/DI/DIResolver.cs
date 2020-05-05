@@ -5,7 +5,6 @@ using System.Linq;
 using System.Reflection;
 using System.Web.Mvc;
 using AuthorizePractice.Controllers;
-using DAL.EF;
 using DAL.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -35,12 +34,7 @@ namespace AuthorizePractice.DI
         static DIResolver()
         {
             var service = new ServiceCollection();
-
-            service.AddDbContext<AccountDbContext>(options => options
-                                                             .UseSqlServer(ConfigurationManager.ConnectionStrings["AuthorizePracticeByRole"].ConnectionString)
-                                                             .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking),
-                                                   ServiceLifetime.Scoped,
-                                                   ServiceLifetime.Scoped);
+            
             service.AddTransient<AuthController>();
             service.AddTransient<HomeController>();
             service.AddTransient<ErrorController>();
@@ -48,7 +42,6 @@ namespace AuthorizePractice.DI
 
             service.AddScoped<IUserRepository, UserRepository>();
             service.AddScoped<IAuthorizeRepository, AuthorizeRepository>();
-            service.AddScoped<IRouteRoleRepository, RouteRoleRepository>();
             _provider = service.BuildServiceProvider();
         }
 

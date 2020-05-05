@@ -33,25 +33,28 @@ namespace AuthorizePractice.Infra
         /// </summary>
         private void ValidateCustomAuthorize(ControllerContext controllerContext, string actionName)
         {
-            var controllerDescriptor      = GetControllerDescriptor(controllerContext);
-            var action                    = FindAction(controllerContext, controllerDescriptor, actionName);
-            var customAuthorizeAttributes = action.GetCustomAttributes(typeof(CustomAuthorizeAttribute), true).Cast<CustomAuthorizeAttribute>();
+            var controllerDescriptor = GetControllerDescriptor(controllerContext);
+            var action               = FindAction(controllerContext, controllerDescriptor, actionName);
+            var attributeRoles = action.GetCustomAttributes(typeof(CustomAuthorizeAttribute), true)
+                                       .Cast<CustomAuthorizeAttribute>()
+                                       .SelectMany(attributes => attributes.Roles)
+                                       .Distinct();
 
-            if (customAuthorizeAttributes.Any() == false)
+            if (attributeRoles.Any() == false)
             {
                 return;
             }
-            
+
             if (_userDto == null)
             {
                 throw new CustomException { ErrorCode = HttpStatusCode.Unauthorized };
             }
-            
+
             var authorizeRepository = DIResolver.GetService<IAuthorizeRepository>();
             var dto = new AuthorizationDto
                       {
-                          UserId                       = _userDto.UserId,
-                          AuthorizeFunctionActionPairs = customAuthorizeAttributes
+                          UserId         = _userDto.UserId,
+                          AttributeRoles = attributeRoles
                       };
 
             if (authorizeRepository.Auth(dto) == false)

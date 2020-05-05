@@ -59,6 +59,8 @@
     <Folder Include="Properties" />
     <Folder Include="SeedData" />
     <Folder Include="Tables\" />
+    <Folder Include="User-Defined Types\" />
+    <Folder Include="Stored Procedure\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\User.sql" />
@@ -73,5 +75,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Db.publish.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Stored Procedure\AuthorizeUserIdRoles.sql" />
+    <Content Include="User-Defined Types\Nvarchar1000.sql" />
   </ItemGroup>
 </Project>

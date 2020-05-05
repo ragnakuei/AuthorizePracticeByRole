@@ -46,6 +46,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\CustomAuthorizeAttribute.cs" />
+    <Compile Include="Helpers\DataTableStringWithSerialGenerator.cs" />
+    <Compile Include="Helpers\DataTableWithSerialGenerator.cs" />
     <Compile Include="Helpers\PasswordHelpers.cs" />
     <Compile Include="Models\AuthorizationDto.cs" />
     <Compile Include="Models\CustomException.cs" />

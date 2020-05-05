@@ -12,7 +12,11 @@ namespace DAL.Entities
     
         [Key]
         public int Id { get; set; }
+        
+        [MaxLength(50)]
         public string Account { get; set; }
+        
+        [MaxLength(100)]
         public string Password { get; set; }
         public string Name { get; set; }
         public System.DateTime Created { get; set; }

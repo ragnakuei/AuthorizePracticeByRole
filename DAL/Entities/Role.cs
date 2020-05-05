@@ -9,7 +9,6 @@ namespace DAL.Entities
         public Role()
         {
             this.GroupRoles = new HashSet<GroupRole>();
-            this.RouteRoles = new HashSet<RouteRole>();
         }
     
         [Key]
@@ -21,7 +20,5 @@ namespace DAL.Entities
         public Nullable<System.DateTime> Created { get; set; }
     
         public virtual ICollection<GroupRole> GroupRoles { get; set; }
-        
-        public virtual ICollection<RouteRole> RouteRoles { get; set; }
     }
 }
