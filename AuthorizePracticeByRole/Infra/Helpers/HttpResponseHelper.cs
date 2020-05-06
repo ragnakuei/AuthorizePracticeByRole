@@ -1,22 +1,22 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Net;
 using System.Web;
-using System.Web.Routing;
-using AuthorizePractice.Controllers;
 using SharedLibrary.Models;
 
-namespace AuthorizePractice.Infra
+namespace AuthorizePracticeByRole.Infra.Helpers
 {
     public static class HttpResponseHelper
     {
         public static void CreateCustomExceptionResponse(this HttpResponse response, CustomException customException)
         {
+            HttpStatusCode httpStatus = HttpStatusCode.OK;
+
             switch (customException.ErrorCode)
             {
                 case HttpStatusCode.Unauthorized:
-                    response.Create401UnauthorizedResponse(customException);
+                    httpStatus = customException.IsAuthenticated
+                                     ? HttpStatusCode.NotFound
+                                     : HttpStatusCode.Unauthorized;
                     break;
                 case HttpStatusCode.Forbidden:
                     break;
@@ -26,24 +26,14 @@ namespace AuthorizePractice.Infra
                     break;
                 case HttpStatusCode.InternalServerError:
                 default:
-                    Create500ErrorResponse(response, customException);
+                    httpStatus = HttpStatusCode.InternalServerError;
                     break;
             }
-        }
 
-        private static void Create401UnauthorizedResponse(this HttpResponse response, CustomException customException)
-        {
-            var httpStatus = HttpStatusCode.Unauthorized;
             CreateCommonResponse(response, httpStatus);
         }
 
-        public static void Create500ErrorResponse(this HttpResponse response, Exception exception)
-        {
-            var httpStatus = HttpStatusCode.InternalServerError;
-            CreateCommonResponse(response, httpStatus);
-        }
-
-        private static void CreateCommonResponse(HttpResponse response, HttpStatusCode httpStatus)
+        public static void CreateCommonResponse(this HttpResponse response, HttpStatusCode httpStatus)
         {
             response.Status     = $"{(int)httpStatus} {httpStatus.ToString()}";
             response.StatusCode = (int)httpStatus;

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace AuthorizePractice.Models
+namespace AuthorizePracticeByRole.Models
 {
     public class LoginForm 
     {

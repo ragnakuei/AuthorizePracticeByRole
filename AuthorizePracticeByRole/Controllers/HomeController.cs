@@ -1,8 +1,9 @@
 ﻿using System.Web.Mvc;
+using AuthorizePracticeByRole.Infra;
 
-namespace AuthorizePractice.Controllers
+namespace AuthorizePracticeByRole.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         // GET: Home
         public ActionResult Index()

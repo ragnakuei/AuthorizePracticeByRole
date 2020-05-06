@@ -1,7 +1,7 @@
 using System;
 using NLog;
 
-namespace AuthorizePractice.Infra
+namespace AuthorizePracticeByRole.Infra.Helpers
 {
     public static class ILoggerHelper
     {

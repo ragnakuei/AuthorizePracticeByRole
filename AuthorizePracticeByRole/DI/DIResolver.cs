@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Reflection;
 using System.Web.Mvc;
-using AuthorizePractice.Controllers;
+using AuthorizePracticeByRole.Controllers;
 using DAL.Repository;
+using DAL.Repository.@interface;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace AuthorizePractice.DI
+namespace AuthorizePracticeByRole.DI
 {
     public class DIResolver : IDependencyResolver
     {

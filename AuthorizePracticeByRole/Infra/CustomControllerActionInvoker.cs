@@ -1,13 +1,12 @@
 ﻿using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using AuthorizePractice.DI;
-using DAL.Repository;
+using AuthorizePracticeByRole.DI;
+using DAL.Repository.@interface;
 using SharedLibrary.Attributes;
 using SharedLibrary.Models;
 
-namespace AuthorizePractice.Infra
+namespace AuthorizePracticeByRole.Infra
 {
     /// <summary>
     ///     透過 CustomAuthorizeAttribute 來驗証是否有進入 Action 的資格
@@ -38,9 +37,10 @@ namespace AuthorizePractice.Infra
             var attributeRoles = action.GetCustomAttributes(typeof(CustomAuthorizeAttribute), true)
                                        .Cast<CustomAuthorizeAttribute>()
                                        .SelectMany(attributes => attributes.Roles)
-                                       .Distinct();
+                                       .Distinct()
+                                       .ToArray();
 
-            if (attributeRoles.Any() == false)
+            if (attributeRoles.Length > 0 == false)
             {
                 return;
             }
@@ -59,7 +59,11 @@ namespace AuthorizePractice.Infra
 
             if (authorizeRepository.Auth(dto) == false)
             {
-                throw new CustomException { ErrorCode = HttpStatusCode.Unauthorized };
+                throw new CustomException
+                      {
+                          ErrorCode = HttpStatusCode.Unauthorized,
+                          IsAuthenticated = _userDto != null
+                      };
             }
         }
     }

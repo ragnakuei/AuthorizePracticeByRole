@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AuthorizePractice.DI
+namespace AuthorizePracticeByRole.DI
 {
     public class DiPropertyAttribute : Attribute { }
 }

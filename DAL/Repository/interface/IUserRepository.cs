@@ -1,6 +1,6 @@
 ﻿using SharedLibrary.Models;
 
-namespace DAL.Repository
+namespace DAL.Repository.@interface
 {
     public interface IUserRepository
     {

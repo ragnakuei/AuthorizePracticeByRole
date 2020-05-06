@@ -3,7 +3,7 @@ using System.Web.Security;
 using Newtonsoft.Json;
 using SharedLibrary.Models;
 
-namespace AuthorizePractice.Infra
+namespace AuthorizePracticeByRole.Infra
 {
     public class BaseController : Controller
     {
@@ -12,6 +12,7 @@ namespace AuthorizePractice.Infra
             if (System.Web.HttpContext.Current.User.Identity is FormsIdentity identity)
             {
                 this.UserDto = JsonConvert.DeserializeObject<UserDto>(identity.Ticket.UserData);
+                ViewBag.IsAuthenticated = identity.IsAuthenticated;
             }
         }
 

@@ -1,16 +1,17 @@
 ﻿using System;
+using System.Net;
 using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
-using AuthorizePractice.DI;
-using AuthorizePractice.Infra;
+using AuthorizePracticeByRole.DI;
+using AuthorizePracticeByRole.Infra.Helpers;
 using Newtonsoft.Json;
 using NLog;
 using SharedLibrary.Models;
 
-namespace AuthorizePractice
+namespace AuthorizePracticeByRole
 {
     public class MvcApplication : System.Web.HttpApplication
     {
@@ -38,7 +39,7 @@ namespace AuthorizePractice
                     Response.CreateCustomExceptionResponse(customException);
                     break;
                 case Exception exception:
-                    Response.Create500ErrorResponse(exception);
+                    Response.CreateCommonResponse(HttpStatusCode.InternalServerError);
                     break;
             }
         }

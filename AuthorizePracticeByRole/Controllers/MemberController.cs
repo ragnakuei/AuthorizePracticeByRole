@@ -1,9 +1,9 @@
 ﻿using System.Web.Mvc;
 using System.Web.Security;
-using AuthorizePractice.Infra;
+using AuthorizePracticeByRole.Infra;
 using SharedLibrary.Attributes;
 
-namespace AuthorizePractice.Controllers
+namespace AuthorizePracticeByRole.Controllers
 {
     public class MemberController : BaseController
     {
@@ -17,11 +17,13 @@ namespace AuthorizePractice.Controllers
             return View();
         }
 
+        [CustomAuthorize("Role1")]
         public ActionResult Role1()
         {
             return View();
         }
 
+        [CustomAuthorize("Role2")]
         public ActionResult Role2()
         {
             return View();

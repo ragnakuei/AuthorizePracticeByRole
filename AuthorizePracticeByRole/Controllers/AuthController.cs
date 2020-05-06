@@ -2,15 +2,16 @@
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
-using AuthorizePractice.Models;
-using DAL.Repository;
+using AuthorizePracticeByRole.Infra;
+using AuthorizePracticeByRole.Models;
+using DAL.Repository.@interface;
 using Newtonsoft.Json;
 using SharedLibrary.Helpers;
 
-namespace AuthorizePractice.Controllers
+namespace AuthorizePracticeByRole.Controllers
 {
     [AllowAnonymous]
-    public class AuthController : Controller
+    public class AuthController : BaseController
     {
         private readonly IUserRepository _userRepository;
 

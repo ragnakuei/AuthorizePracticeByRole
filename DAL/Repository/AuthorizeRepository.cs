@@ -2,6 +2,7 @@
 using System.Data.SqlClient;
 using System.Linq;
 using DAL.Entities;
+using DAL.Repository.@interface;
 using Dapper;
 using SharedLibrary.Helpers;
 using SharedLibrary.Models;
@@ -12,13 +13,13 @@ namespace DAL.Repository
     {
         public bool Auth(AuthorizationDto dto)
         {
-            var sqlScript = "EXECUTE [dbo].[usp_AuthorizeUserIdRoles] @userId, @roles";
+            var sqlScript  = $"EXECUTE {SpStore.AuthorizeUserIdRoles} @userId, @attributeRoles";
             var parameters = new DynamicParameters();
             parameters.Add("userId", dto.UserId, DbType.Int32);
 
-            var rolesDataTable = new DataTableStringWithSerialGenerator("Value");
-            rolesDataTable.AddRange(dto.AttributeRoles);
-            parameters.Add("roles", rolesDataTable.Result.AsTableValuedParameter("[dbo].[Nvarchar1000]") );
+            var attributeRolesDataTable = new DataTableStringWithSerialGenerator("Value");
+            attributeRolesDataTable.AddRange(dto.AttributeRoles);
+            parameters.Add("attributeRoles", attributeRolesDataTable.Result.AsTableValuedParameter("[dbo].[Nvarchar1000]"));
 
             using (var conn = new SqlConnection(ConnectionString))
             {

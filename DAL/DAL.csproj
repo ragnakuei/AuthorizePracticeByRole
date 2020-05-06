@@ -126,9 +126,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\AuthorizeRepository.cs" />
     <Compile Include="Repository\BaseRepository.cs" />
-    <Compile Include="Repository\IAuthorizeRepository.cs" />
-    <Compile Include="Repository\IRouteRoleRepository.cs" />
-    <Compile Include="Repository\IUserRepository.cs" />
+    <Compile Include="Repository\interface\IAuthorizeRepository.cs" />
+    <Compile Include="Repository\interface\IUserRepository.cs" />
+    <Compile Include="Repository\SpStore.cs" />
     <Compile Include="Repository\UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -143,9 +143,6 @@
       <Project>{7DE61F75-31A3-4B32-AFA7-B7CB714DA07B}</Project>
       <Name>SharedLibrary</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="EF" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

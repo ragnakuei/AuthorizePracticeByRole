@@ -1,7 +1,7 @@
 using System;
 using System.Text;
 
-namespace AuthorizePractice.Infra
+namespace AuthorizePracticeByRole.Infra.Helpers
 {
     public static class ExceptionHelper
     {
