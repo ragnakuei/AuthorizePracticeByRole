@@ -1,9 +1,10 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using AuthorizePracticeByRole.DI;
+using AuthorizePracticeByRole.Infra.Helpers;
 using DAL.Repository.@interface;
-using SharedLibrary.Attributes;
 using SharedLibrary.Models;
 
 namespace AuthorizePracticeByRole.Infra
@@ -33,12 +34,11 @@ namespace AuthorizePracticeByRole.Infra
         private void ValidateCustomAuthorize(ControllerContext controllerContext, string actionName)
         {
             var controllerDescriptor = GetControllerDescriptor(controllerContext);
-            var action               = FindAction(controllerContext, controllerDescriptor, actionName);
-            var attributeRoles = action.GetCustomAttributes(typeof(CustomAuthorizeAttribute), true)
-                                       .Cast<CustomAuthorizeAttribute>()
-                                       .SelectMany(attributes => attributes.Roles)
-                                       .Distinct()
-                                       .ToArray();
+            var actionDescriptor     = FindAction(controllerContext, controllerDescriptor, actionName);
+            var attributeRoles = controllerDescriptor.GetControllerCustomAttributes()
+                                                     .Concat(actionDescriptor.GetActionCustomAttributes())
+                                                     .Distinct()
+                                                     .ToArray();
 
             if (attributeRoles.Length > 0 == false)
             {
@@ -61,7 +61,7 @@ namespace AuthorizePracticeByRole.Infra
             {
                 throw new CustomException
                       {
-                          ErrorCode = HttpStatusCode.Unauthorized,
+                          ErrorCode       = HttpStatusCode.Unauthorized,
                           IsAuthenticated = _userDto != null
                       };
             }

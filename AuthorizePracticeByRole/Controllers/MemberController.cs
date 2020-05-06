@@ -1,14 +1,15 @@
 ﻿using System.Web.Mvc;
 using System.Web.Security;
+using AuthorizePracticeByRole.Consts;
 using AuthorizePracticeByRole.Infra;
-using SharedLibrary.Attributes;
+using AuthorizePracticeByRole.Infra.Attributes;
 
 namespace AuthorizePracticeByRole.Controllers
 {
     public class MemberController : BaseController
     {
-        [CustomAuthorize("Role1")]
-        [CustomAuthorize("Role1", "Role2")]
+        [CustomAuthorize(RoleConst.Role1)]
+        [CustomAuthorize(RoleConst.Role1, RoleConst.Role2)]
         public ActionResult Index()
         {
             var identity = User.Identity as FormsIdentity;
@@ -17,13 +18,13 @@ namespace AuthorizePracticeByRole.Controllers
             return View();
         }
 
-        [CustomAuthorize("Role1")]
+        [CustomAuthorize(RoleConst.Role1)]
         public ActionResult Role1()
         {
             return View();
         }
 
-        [CustomAuthorize("Role2")]
+        [CustomAuthorize(RoleConst.Role2)]
         public ActionResult Role2()
         {
             return View();

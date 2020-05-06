@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using SharedLibrary.Attributes;
 
 namespace SharedLibrary.Models
 {

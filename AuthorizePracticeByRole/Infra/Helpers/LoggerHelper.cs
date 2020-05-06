@@ -3,7 +3,7 @@ using NLog;
 
 namespace AuthorizePracticeByRole.Infra.Helpers
 {
-    public static class ILoggerHelper
+    public static class LoggerHelper
     {
         public static void LogException(this ILogger logger, Exception exception)
         {

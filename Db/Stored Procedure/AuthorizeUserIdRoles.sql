@@ -1,5 +1,5 @@
-﻿DROP PROCEDURE IF EXISTS [dbo].[usp_AuthorizeUserIdRoles];
-GO
+﻿--DROP PROCEDURE IF EXISTS [dbo].[usp_AuthorizeUserIdRoles];
+--GO
 
 CREATE PROCEDURE [dbo].[usp_AuthorizeUserIdRoles] @UserId INT,
                                                   @Roles  [dbo].[Nvarchar1000] READONLY

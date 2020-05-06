@@ -1,4 +1,6 @@
-﻿IF NOT EXISTS(SELECT *
+﻿TRUNCATE TABLE [dbo].[User]
+
+IF NOT EXISTS(SELECT *
               FROM [dbo].[User])
     BEGIN
         ALTER TABLE [dbo].[GroupRole]
@@ -20,20 +22,26 @@
         INSERT INTO [dbo].[User] ([Account], [Password], [Name], [Created])
         VALUES ('admin', 'Ihs3/NtS0PfDm70L4hHbDhwAyl++zVeIeARjAmxrlks=', 'admin', '2018/06/07 21:30')
 
-        INSERT INTO [dbo].[Group] ([Name], [Created])
-        VALUES ('Group1', '2018-06-07 21:30:00.0000000')
+        SET IDENTITY_INSERT [dbo].[Group] ON
+        INSERT INTO [dbo].[Group] ([Id], [Name], [Created])
+        VALUES (1, 'adminGroup', '2018-06-07 21:30:00.0000000'),
+               (2, 'Group1', '2018-06-07 21:30:00.0000000')
+        SET IDENTITY_INSERT [dbo].[Group] OFF
 
         SET IDENTITY_INSERT [dbo].[Role] ON
         INSERT INTO [dbo].[Role] ([Id], [Name], [Remark], [Created])
-        VALUES (1, 'role1', NULL, '2018-06-07 21:30:00.0000000'),
-               (2, 'role2', NULL, '2018-06-07 21:30:00.0000000')
+        VALUES (1, 'Admin', NULL, '2018-06-07 21:30:00.0000000'),
+               (2, 'Role1', NULL, '2018-06-07 21:30:00.0000000'),
+               (3, 'Role2', NULL, '2018-06-07 21:30:00.0000000')
         SET IDENTITY_INSERT [dbo].[Role] OFF
 
         INSERT INTO [dbo].[UserGroup] ([UserId], [GroupId], [Created])
-        VALUES (1, 1, '2018-06-07 21:30:00.0000000')
+        VALUES (1, 1, '2018-06-07 21:30:00.0000000'),
+               (1, 2, '2018-06-07 21:30:00.0000000')
 
         INSERT INTO [dbo].[GroupRole] ([GroupId], [RoleId], [Created])
-        VALUES (1, 1, '2018-06-07 21:30:00.0000000')
+        VALUES (1, 1, '2018-06-07 21:30:00.0000000'),
+               (2, 2, '2018-06-07 21:30:00.0000000')
 
         ALTER TABLE [dbo].[GroupRole]
             WITH CHECK
@@ -62,5 +70,5 @@
                 REFERENCES [dbo].[Group] ([Id])
         ALTER TABLE [dbo].[UserGroup]
             CHECK CONSTRAINT [FK_UserGroup_GroupId]
-   
+
     END

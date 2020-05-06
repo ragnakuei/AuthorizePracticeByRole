@@ -12,7 +12,7 @@ namespace DAL.Repository
         public UserDto Validate(string account, string password)
         {
             var sqlScript = @"
-SELECT [U].[id] AS [UserId],
+SELECT [U].[Id] AS [UserId],
        [U].[Account],
        [U].[Name],
        [U].[Created]

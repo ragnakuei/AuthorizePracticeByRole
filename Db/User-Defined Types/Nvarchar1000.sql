@@ -1,6 +1,6 @@
-﻿IF type_id('[dbo].[Nvarchar1000]') IS NOT NULL
-    DROP TYPE [dbo].[Nvarchar1000];
-GO
+﻿--IF type_id('[dbo].[Nvarchar1000]') IS NOT NULL
+--    DROP TYPE [dbo].[Nvarchar1000];
+--GO
 
 CREATE TYPE [dbo].[Nvarchar1000] AS TABLE
 (

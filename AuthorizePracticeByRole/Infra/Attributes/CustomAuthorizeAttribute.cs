@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace SharedLibrary.Attributes
+namespace AuthorizePracticeByRole.Infra.Attributes
 {
-    [AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
     public class CustomAuthorizeAttribute : Attribute
     {
         public CustomAuthorizeAttribute(params string[] roles)

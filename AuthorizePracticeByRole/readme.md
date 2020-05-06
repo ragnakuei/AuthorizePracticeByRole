@@ -51,6 +51,11 @@ Authorization 實作
 
 判斷 Action 上面的 CustomAuthorizeAttribute() 是否符合該使用者的資格
 
+### Role 
+
+每個 Action 都會有自己的 Role，所以會有基本的 Role 是不可以改的
+
+
 ## MemberController
 
 用來驗証 Authorization 功能是否正確
@@ -67,7 +72,7 @@ Authorization 實作
 
 TODO:
 
-- CustomAuthorize 要可以套用在 Controller 上
+- Group 可以有巢狀功能 
 - 加上 Authorization 編輯功能
 - 加上新增功能
 - 加上編輯功能

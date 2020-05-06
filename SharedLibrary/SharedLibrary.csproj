@@ -45,7 +45,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Attributes\CustomAuthorizeAttribute.cs" />
     <Compile Include="Helpers\DataTableStringWithSerialGenerator.cs" />
     <Compile Include="Helpers\DataTableWithSerialGenerator.cs" />
     <Compile Include="Helpers\PasswordHelpers.cs" />

@@ -237,6 +237,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Consts\RoleConst.cs" />
+    <Compile Include="Controllers\Admin\Group.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -246,11 +248,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infra\Attributes\CustomAuthorizeAttribute.cs" />
     <Compile Include="Infra\BaseController.cs" />
     <Compile Include="Infra\CustomControllerActionInvoker.cs" />
+    <Compile Include="Infra\Helpers\DescriptorHelpers.cs" />
     <Compile Include="Infra\Helpers\ExceptionHelper.cs" />
     <Compile Include="Infra\Helpers\HttpResponseHelper.cs" />
-    <Compile Include="Infra\Helpers\ILoggerHelper.cs" />
+    <Compile Include="Infra\Helpers\LoggerHelper.cs" />
     <Compile Include="Models\LoginForm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
