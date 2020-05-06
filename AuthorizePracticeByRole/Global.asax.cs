@@ -43,22 +43,5 @@ namespace AuthorizePracticeByRole
                     break;
             }
         }
-
-        protected void Application_AuthenticateRequest(object sender, EventArgs e)
-        {
-            AssignCurrentUser();
-        }
-
-        private static void AssignCurrentUser()
-        {
-            if ((HttpContext.Current.User?.Identity.IsAuthenticated ?? false)
-             && HttpContext.Current.User.Identity is FormsIdentity identity)
-            {
-                var ticket   = identity.Ticket;
-                var userData = JsonConvert.DeserializeObject<UserDto>(ticket.UserData);
-                var roles    = userData.Roles;
-                HttpContext.Current.User = new GenericPrincipal(identity, roles);
-            }
-        }
     }
 }
