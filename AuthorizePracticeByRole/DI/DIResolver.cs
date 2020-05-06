@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Web.Mvc;
 using AuthorizePracticeByRole.Controllers;
+using AuthorizePracticeByRole.Controllers.Admin;
 using DAL.Repository;
 using DAL.Repository.@interface;
 using Microsoft.Extensions.DependencyInjection;
@@ -38,9 +39,11 @@ namespace AuthorizePracticeByRole.DI
             service.AddTransient<HomeController>();
             service.AddTransient<ErrorController>();
             service.AddTransient<MemberController>();
+            service.AddTransient<GroupController>();
 
             service.AddScoped<IUserRepository, UserRepository>();
             service.AddScoped<IAuthorizeRepository, AuthorizeRepository>();
+            service.AddScoped<IGroupRepository, GroupRepository>();
             _provider = service.BuildServiceProvider();
         }
 
