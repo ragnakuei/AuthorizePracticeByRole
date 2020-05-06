@@ -55,8 +55,19 @@ Authorization 實作
 
 用來驗証 Authorization 功能是否正確
 
+## 錯誤處理
+
+統一透過 global.asax.cs > Application_Error() 來處理
+
+主要判斷 Exception 對象為 `CustomException`
+
+可能回傳 HttpStatus Code 為 `401`、`404`、`500`
+
+之後交由 Web.config 中所設定的 `httpErrors` 來決定要 Redirect 至哪個頁面
+
 TODO:
 
+- CustomAuthorize 要可以套用在 Controller 上
 - 加上 Authorization 編輯功能
 - 加上新增功能
 - 加上編輯功能
