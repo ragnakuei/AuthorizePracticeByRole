@@ -1,0 +1,93 @@
+﻿@using DAL.Entities
+@model AuthorizePracticeByRole.ViewModels.GroupViewModel
+
+@{
+    ViewBag.Title = "Groups";
+}
+
+<h2>Groups</h2>
+<form method="post" id="editForm" action="@(Url.RouteUrl("Default", new { action = "Edit", controller = "Groups", id = Model.EditId }))">
+    @Html.AntiForgeryToken()
+    <table class="table">
+        <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Groups.First().Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Groups.First().Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Groups.First().Created)
+            </th>
+            <th>
+                Actions
+            </th>
+        </tr>
+        </thead>
+
+        <tbody>
+        @foreach (var item in Model.Groups)
+        {
+            <tr>
+                @{
+                    var isEditMode = Model.EditId == item.Id;
+                }
+                @if (isEditMode)
+                {
+                    @EditGroup(item)
+                }
+                else
+                {
+                    @DisplayGroup(item)
+                }
+                <td>
+                    @GenerateEditOrCancelLink(isEditMode, item) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { onclick = $"return confirm('確認是否刪除 GroupID:{item.Id}')" })
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</form>
+
+@helper EditGroup(Group item)
+{
+    <td>
+        @Html.DisplayFor(modelItem => item.Id)
+        @Html.HiddenFor(modelItem => item.Id)
+    </td>
+    <td>
+        @Html.EditorFor(modelItem => item.Name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Created)
+    </td>
+}
+
+@helper DisplayGroup(Group item)
+{
+    <td>
+        @Html.DisplayFor(modelItem => item.Id)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Created)
+    </td>
+}
+
+@helper GenerateEditOrCancelLink(bool isEditMode, Group item)
+{
+    if (isEditMode)
+    {
+        <button class="btn btn-success" type="submit" >Save</button>
+        @Html.ActionLink("Cancel", "Index", new { id = (int?)null })
+    }
+    else
+    {
+        @Html.ActionLink("Edit", "Index", new { id = item.Id })
+    }
+}

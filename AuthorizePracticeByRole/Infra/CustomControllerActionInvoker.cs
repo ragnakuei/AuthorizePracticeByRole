@@ -50,7 +50,7 @@ namespace AuthorizePracticeByRole.Infra
                 throw new CustomException { ErrorCode = HttpStatusCode.Unauthorized };
             }
 
-            var authorizeRepository = DIResolver.GetService<IAuthorizeRepository>();
+            var authorizeRepository = DiResolver.GetService<IAuthorizeRepository>();
             var dto = new AuthorizationDto
                       {
                           UserId         = _userDto.UserId,

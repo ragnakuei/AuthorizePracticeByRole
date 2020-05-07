@@ -11,7 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace AuthorizePracticeByRole.DI
 {
-    public class DIResolver : IDependencyResolver
+    public class DiResolver : IDependencyResolver
     {
         #region implement
 
@@ -31,7 +31,7 @@ namespace AuthorizePracticeByRole.DI
 
         private static readonly ServiceProvider _provider;
 
-        static DIResolver()
+        static DiResolver()
         {
             var service = new ServiceCollection();
             
@@ -39,7 +39,7 @@ namespace AuthorizePracticeByRole.DI
             service.AddTransient<HomeController>();
             service.AddTransient<ErrorController>();
             service.AddTransient<MemberController>();
-            service.AddTransient<GroupController>();
+            service.AddTransient<GroupsController>();
 
             service.AddScoped<IUserRepository, UserRepository>();
             service.AddScoped<IAuthorizeRepository, AuthorizeRepository>();

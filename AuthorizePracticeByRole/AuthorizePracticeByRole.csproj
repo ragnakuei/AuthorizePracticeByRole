@@ -224,7 +224,7 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
-    <Content Include="Views\Group\Index.cshtml" />
+    <Content Include="Views\Groups\Index.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />
@@ -239,7 +239,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Consts\RoleConst.cs" />
-    <Compile Include="Controllers\Admin\GroupController.cs" />
+    <Compile Include="Controllers\Admin\GroupsController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -256,7 +256,8 @@
     <Compile Include="Infra\Helpers\ExceptionHelper.cs" />
     <Compile Include="Infra\Helpers\HttpResponseHelper.cs" />
     <Compile Include="Infra\Helpers\LoggerHelper.cs" />
-    <Compile Include="Models\LoginForm.cs" />
+    <Compile Include="ViewModels\GroupViewModel.cs" />
+    <Compile Include="ViewModels\LoginForm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

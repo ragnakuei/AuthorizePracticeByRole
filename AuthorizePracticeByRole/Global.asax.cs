@@ -17,7 +17,7 @@ namespace AuthorizePracticeByRole
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            DependencyResolver.SetResolver(new DIResolver());
+            DependencyResolver.SetResolver(new DiResolver());
         }
 
         void Application_Error(object sender, EventArgs e)
