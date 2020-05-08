@@ -5,6 +5,14 @@ namespace SharedLibrary.Models
 {
     public class CustomException : Exception
     {
+        public CustomException()
+        {
+        }
+
+        public CustomException(string message) : base(message)
+        {
+        }
+
         /// <summary>
         /// 錯誤代碼
         /// </summary>

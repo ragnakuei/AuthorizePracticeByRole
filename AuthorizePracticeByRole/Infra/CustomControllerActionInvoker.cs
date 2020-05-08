@@ -51,7 +51,7 @@ namespace AuthorizePracticeByRole.Infra
 
             if (_userDto == null)
             {
-                throw new CustomException { ErrorCode = HttpStatusCode.Unauthorized };
+                throw new CustomException("No Authentication") { ErrorCode = HttpStatusCode.Unauthorized };
             }
 
             var authorizeRepository = DiResolver.GetService<IAuthorizeRepository>();
@@ -63,7 +63,7 @@ namespace AuthorizePracticeByRole.Infra
 
             if (authorizeRepository.Auth(dto) == false)
             {
-                throw new CustomException
+                throw new CustomException("Authorizted Failed")
                       {
                           ErrorCode       = HttpStatusCode.Unauthorized,
                           IsAuthenticated = _userDto != null
