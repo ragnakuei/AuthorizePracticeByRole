@@ -31,9 +31,9 @@ namespace AuthorizePracticeByRole.Controllers.Admin
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult New(Group item)
+        public ActionResult New(Group newGroup)
         {
-            // _groupRepository.New(item);
+            _groupRepository.New(newGroup);
             return RedirectToAction("Index");
         }
         

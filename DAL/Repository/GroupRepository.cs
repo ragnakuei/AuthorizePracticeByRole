@@ -23,6 +23,21 @@ FROM [dbo].[Group]
             }
         }
 
+        public void New(Group g)
+        {
+            var sqlScript = @"
+INSERT INTO [dbo].[Group] ([Name], [Created])
+VALUES (@name, @created);
+";
+            var parameters = new DynamicParameters();
+            parameters.Add("Name",    g.Name,       DbType.String, size: 50);
+            parameters.Add("Created", DateTime.Now, DbType.DateTime);
+            using (var conn = new SqlConnection(ConnectionString))
+            {
+                conn.Execute(sqlScript, parameters);
+            }
+        }
+
         public void Update(Group g)
         {
             var sqlScript = @"

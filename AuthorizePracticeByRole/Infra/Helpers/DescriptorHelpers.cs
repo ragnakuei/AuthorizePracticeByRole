@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using AuthorizePracticeByRole.Infra.Attributes;
@@ -11,14 +12,14 @@ namespace AuthorizePracticeByRole.Infra.Helpers
         {
             return controller.GetCustomAttributes(typeof(CustomAuthorizeAttribute), true)
                              .Cast<CustomAuthorizeAttribute>()
-                             .SelectMany(attributes => attributes.Roles);
+                             .SelectMany(attributes => attributes?.Roles ?? Array.Empty<string>());
         }
 
         public static IEnumerable<string> GetActionCustomAttributes(this ActionDescriptor action)
         {
-            return action.GetCustomAttributes(typeof(CustomAuthorizeAttribute), true)
+            return action?.GetCustomAttributes(typeof(CustomAuthorizeAttribute), true)
                          .Cast<CustomAuthorizeAttribute>()
-                         .SelectMany(attributes => attributes.Roles);
+                         .SelectMany(attributes => attributes?.Roles ?? Array.Empty<string>());
         }
     }
 }

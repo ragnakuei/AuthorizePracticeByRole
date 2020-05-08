@@ -93,6 +93,7 @@
     if (isEditMode)
     {
         <button class="btn btn-success" type="submit">Save</button>
+        <text>|</text>
         @Html.ActionLink("Cancel", "Index", new { id = (int?)null })
     }
     else
@@ -103,22 +104,28 @@
 
 @helper NewGroupDiv()
 {
+    var newGroup = new Group();
+
     <div style="display: none;" id="newGroup" class="animated-modal">
         <h2>New</h2>
-        <form action="@(Url.RouteUrl("Default", new { action = "New", controller = "Groups" }))">
+        <form id="newForm"
+              method="post"
+              action="@(Url.RouteUrl("Default", new { action = "New", controller = "Groups" }))">
+            @Html.AntiForgeryToken()
             <div class="form-group">
-                <label for="name">Name:</label>
-                <input class="form-control" id="name">
+                @Html.LabelFor( x => newGroup.Name)
+                @Html.EditorFor( x => newGroup.Name)
             </div>
             @* <div class="checkbox"> *@
             @*     <label><input type="checkbox"> Remember me</label> *@
             @* </div> *@
-            <button type="submit" class="btn btn-default">Submit</button>
+            <button type="submit"
+                    form="newForm"
+                    class="btn btn-default">Submit</button>
         </form>
     </div>
 }
 
 @section bottomScripts {
-   @Html.Partial("_FancyboxReference")
+    @Html.Partial("_FancyboxReference")
 }
-

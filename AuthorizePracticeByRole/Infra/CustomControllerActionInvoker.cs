@@ -34,7 +34,11 @@ namespace AuthorizePracticeByRole.Infra
         private void ValidateCustomAuthorize(ControllerContext controllerContext, string actionName)
         {
             var controllerDescriptor = GetControllerDescriptor(controllerContext);
-            var actionDescriptor     = FindAction(controllerContext, controllerDescriptor, actionName);
+            
+            var actionDescriptor = FindAction(controllerContext, controllerDescriptor, actionName)
+                                ?? controllerDescriptor.GetCanonicalActions()
+                                                       .FirstOrDefault(a => a.ActionName == actionName);
+            
             var attributeRoles = controllerDescriptor.GetControllerCustomAttributes()
                                                      .Concat(actionDescriptor.GetActionCustomAttributes())
                                                      .Distinct()
