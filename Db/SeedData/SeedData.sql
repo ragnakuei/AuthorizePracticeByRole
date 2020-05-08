@@ -1,6 +1,4 @@
-﻿TRUNCATE TABLE [dbo].[User]
-
-IF NOT EXISTS(SELECT *
+﻿IF NOT EXISTS(SELECT *
               FROM [dbo].[User])
     BEGIN
         ALTER TABLE [dbo].[GroupRole]

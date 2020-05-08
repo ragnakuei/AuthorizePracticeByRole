@@ -45,7 +45,8 @@ namespace AuthorizePracticeByRole.Controllers.Admin
             return RedirectToAction("Index");
         }
         
-        [HttpGet]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
             _groupRepository.Delete(id);

@@ -6,7 +6,7 @@
 }
 
 <h2>Groups</h2>
-<button class="btn btn-success"
+<button class="btn btn-primary"
         type="button"
         data-fancybox
         data-animation-duration="700"
@@ -49,9 +49,9 @@
                     @DisplayGroup(item)
                 }
                 <td>
-                    @GenerateEditOrCancelLink(isEditMode, item) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { onclick = $"return confirm('確認是否刪除 GroupID:{item.Id}')" })
+                    @GenerateEditOrCancelLink(isEditMode, item)
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-info" })
+                    @GenerateDeleteButton(item)
                 </td>
             </tr>
         }
@@ -60,6 +60,10 @@
 </form>
 
 @NewGroupDiv()
+
+@DeleteForm()
+
+@* ******************************************************************************************************************** *@
 
 @helper EditGroup(Group item)
 {
@@ -93,12 +97,11 @@
     if (isEditMode)
     {
         <button class="btn btn-success" type="submit">Save</button>
-        <text>|</text>
-        @Html.ActionLink("Cancel", "Index", new { id = (int?)null })
+        @Html.ActionLink("Cancel", "Index", new { id = (int?)null }, new { @class = "btn btn-warning" })
     }
     else
     {
-        @Html.ActionLink("Edit", "Index", new { id = item.Id })
+        @Html.ActionLink("Edit", "Index", new { id = item.Id }, new { @class = "btn btn-primary" })
     }
 }
 
@@ -121,11 +124,38 @@
             @* </div> *@
             <button type="submit"
                     form="newForm"
-                    class="btn btn-default">Submit</button>
+                    class="btn btn-success">Submit</button>
         </form>
     </div>
 }
 
+@helper GenerateDeleteButton(Group item)
+{
+    <button class="btn btn-danger" type="button" onclick="DeleteGroup(@(item.Id))">Delete</button>
+}
+
+@helper DeleteForm()
+{
+    <form method="post" id="deleteForm" style="display: none">
+        @Html.AntiForgeryToken()
+        <input id="deleteGroup"/>
+    </form>
+}
+
 @section bottomScripts {
     @Html.Partial("_FancyboxReference")
+    
+    <script>
+        function DeleteGroup(id){
+            let confirmResult = confirm('確認是否刪除 GroupID: '+id+' ?');
+            if(confirmResult === false)
+                return;
+            
+             $('#deleteGroup').val(id);
+             
+            let deleteActionUrl = "@(Url.RouteUrl("Default", new { action = "Delete", controller = "Groups"}))";
+             $('#deleteForm').prop("action",deleteActionUrl + '/' + id)
+                             .submit();
+        }
+    </script>
 }
