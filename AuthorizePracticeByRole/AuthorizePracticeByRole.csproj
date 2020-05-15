@@ -262,6 +262,8 @@
     <Compile Include="Infra\Helpers\ExceptionHelper.cs" />
     <Compile Include="Infra\Helpers\HttpResponseHelper.cs" />
     <Compile Include="Infra\Helpers\LoggerHelper.cs" />
+    <Compile Include="Validators\GroupValidator.cs" />
+    <Compile Include="Validators\IGroupValidator.cs" />
     <Compile Include="ViewModels\GroupViewModel.cs" />
     <Compile Include="ViewModels\LoginForm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -109,6 +109,18 @@
 {
     var newGroup = new Group();
 
+    <style>
+        .error {
+          color: red;
+          margin-left: 5px;
+        }
+    /*    
+        label.error {
+          display: inline;
+        }
+    */
+    </style>
+    
     <div style="display: none;" id="newGroup" class="animated-modal">
         <h2>New</h2>
         <form id="newForm"
@@ -117,16 +129,77 @@
             @Html.AntiForgeryToken()
             <div class="form-group">
                 @Html.LabelFor( x => newGroup.Name)
-                @Html.EditorFor( x => newGroup.Name)
+                
+                <input type="number"
+                       id="@(nameof(Group.Name).ToLower())"
+                       name="@(nameof(Group.Name).ToLower())" 
+                       class="form-control" />
+                
+                <label id="@(nameof(Group.Name).ToLower())-error" 
+                       class="error" 
+                       for="@(nameof(Group.Name).ToLower())" 
+                       style="display: none;"></label>
             </div>
             @* <div class="checkbox"> *@
             @*     <label><input type="checkbox"> Remember me</label> *@
             @* </div> *@
-            <button type="submit"
+            <button type="button"
+                    id = "newFormSubmit"
                     form="newForm"
                     class="btn btn-success">Submit</button>
         </form>
     </div>
+    
+    <script>    
+        window.addEventListener("load", function (event) {
+          let validateNewFormUrl = "@(Url.RouteUrl("Default", new { action = "ValidateNew", controller = "Groups" }))"
+                
+          $("#newFormSubmit").click(function (event) {
+            let formData = $("#newForm").serialize();
+            ValidateNew(formData);
+          });
+        
+          function SetErrorMessage(id, errorMessage){
+            $('#'+id).show().val(errorMessage);
+          }
+          
+          function UnsetErrorMessage(id){
+            $('#'+id).hide();                
+          }
+          
+          function ValidateNew(formData) {
+            $.ajax({
+              url: validateNewFormUrl,
+              type: "post",
+              data: formData,
+              success: function (response) {
+                  if(response.IsValid)
+                  {
+                      $('#newForm').submit();
+                  } else {
+                      // name
+                      let nameErrorLabelId = '@(nameof(Group.Name).ToLower())-error'; 
+                      if(response.name.isvalid === false)
+                      {
+                          var errorMessage = response.name.errors.join(',');
+                          SetErrorMessage(nameErrorLabelId, errorMessage);
+                      }
+                      else
+                      {
+                          UnsetErrorMessage(nameErrorLabelId);
+                      }
+                      
+                  }
+              },
+              error: function (response) {
+                console.log("error");
+                console.log(response);
+              },
+            });
+          }
+        });
+
+    </script>
 }
 
 @helper GenerateDeleteButton(Group item)

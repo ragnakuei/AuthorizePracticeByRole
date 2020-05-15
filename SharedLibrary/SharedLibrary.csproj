@@ -52,6 +52,8 @@
     <Compile Include="Models\AuthResultDto.cs" />
     <Compile Include="Models\CustomException.cs" />
     <Compile Include="Models\UserDto.cs" />
+    <Compile Include="Models\ValidateResult.cs" />
+    <Compile Include="Models\ValidateResultGroup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

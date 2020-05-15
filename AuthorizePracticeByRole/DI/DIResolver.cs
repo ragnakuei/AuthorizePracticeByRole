@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Web.Mvc;
 using AuthorizePracticeByRole.Controllers;
 using AuthorizePracticeByRole.Controllers.Admin;
+using AuthorizePracticeByRole.Validators;
 using DAL.Repository;
 using DAL.Repository.@interface;
 using Microsoft.Extensions.DependencyInjection;
@@ -41,6 +42,7 @@ namespace AuthorizePracticeByRole.DI
             service.AddTransient<MemberController>();
             service.AddTransient<GroupsController>();
 
+            service.AddScoped<IGroupValidator, GroupValidator>();
             service.AddScoped<IUserRepository, UserRepository>();
             service.AddScoped<IAuthorizeRepository, AuthorizeRepository>();
             service.AddScoped<IGroupRepository, GroupRepository>();
