@@ -1,4 +1,8 @@
 window.CustomValidator = {
+    
+    // response 格式要參考 ValidateResultGroup
+    // property 原則上依照後端給定的
+    
     RemoteValidate: function (url, formData) {
         $.ajax({
             url: url,
@@ -8,7 +12,7 @@ window.CustomValidator = {
 
                 const columns = Object.keys(response)
                     .filter(function (column) {
-                        return column !== 'IsValid'
+                        return column !== CustomValidator.IsValidColumnName
                     });
                 // console.log((columns));
 
@@ -16,7 +20,7 @@ window.CustomValidator = {
                     CustomValidator.ValidateColumn(column, response[column])
                 })
 
-                if (response.IsValid) {
+                if (response[CustomValidator.IsValidColumnName]) {
                     $('#newForm').submit();
                 }
             },
@@ -27,24 +31,26 @@ window.CustomValidator = {
         });
     },
 
+    IsValidColumnName : 'IsValid',
+
     ValidateColumn: function (column, validateResult) {
-        if (validateResult.IsValid === true) {
-            this.UnsetErrorMessage(column);
+        if (validateResult[CustomValidator.IsValidColumnName] === true) {
+            CustomValidator.UnsetErrorMessage(column);
         } else {
             const errorMessage = validateResult.Errors.join(',');
-            this.SetErrorMessage(column, errorMessage);
+            CustomValidator.SetErrorMessage(column, errorMessage);
         }
     },
 
     SetErrorMessage: function (id, errorMessage) {
-        const errorId = this.GetErrorDomId(id);
+        const errorId = CustomValidator.GetErrorDomId(id);
         // console.log(errorId);
         // console.log(errorMessage);
         $(errorId).show().html(errorMessage);
     },
 
     UnsetErrorMessage: function (id) {
-        const errorId = this.GetErrorDomId(id);
+        const errorId = CustomValidator.GetErrorDomId(id);
         $(errorId).hide();
     },
 
