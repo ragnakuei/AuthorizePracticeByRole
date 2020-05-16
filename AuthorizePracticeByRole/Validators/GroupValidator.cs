@@ -42,7 +42,7 @@ namespace AuthorizePracticeByRole.Validators
             }
 
             var maxLength = 50;
-            if (name.Length < maxLength)
+            if (name.Length > maxLength)
             {
                 validateResult.IsValid = false;
                 validateResult.Errors.Add($"Name 長度不可以大於 {maxLength}");

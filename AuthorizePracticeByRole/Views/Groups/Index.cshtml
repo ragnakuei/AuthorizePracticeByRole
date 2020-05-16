@@ -17,44 +17,44 @@
     @Html.AntiForgeryToken()
     <table class="table">
         <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Groups.First().Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Groups.First().Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Groups.First().Created)
-            </th>
-            <th>
-                Actions
-            </th>
-        </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Groups.First().Id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Groups.First().Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Groups.First().Created)
+                </th>
+                <th>
+                    Actions
+                </th>
+            </tr>
         </thead>
 
         <tbody>
-        @foreach (var item in Model.Groups)
-        {
-            <tr>
-                @{
-                    var isEditMode = Model.EditId == item.Id;
-                }
-                @if (isEditMode)
-                {
-                    @EditGroup(item)
-                }
-                else
-                {
-                    @DisplayGroup(item)
-                }
-                <td>
-                    @GenerateEditOrCancelLink(isEditMode, item)
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-info" })
-                    @GenerateDeleteButton(item)
-                </td>
-            </tr>
-        }
+            @foreach (var item in Model.Groups)
+            {
+                <tr>
+                    @{
+                        var isEditMode = Model.EditId == item.Id;
+                    }
+                    @if (isEditMode)
+                    {
+                        @EditGroup(item)
+                    }
+                    else
+                    {
+                        @DisplayGroup(item)
+                    }
+                    <td>
+                        @GenerateEditOrCancelLink(isEditMode, item)
+                        @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-info" })
+                        @GenerateDeleteButton(item)
+                    </td>
+                </tr>
+            }
         </tbody>
     </table>
 </form>
@@ -111,16 +111,16 @@
 
     <style>
         .error {
-          color: red;
-          margin-left: 5px;
+            color: red;
+            margin-left: 5px;
         }
-    /*    
-        label.error {
-          display: inline;
-        }
-    */
+        /*
+            label.error {
+              display: inline;
+            }
+        */
     </style>
-    
+
     <div style="display: none;" id="newGroup" class="animated-modal">
         <h2>New</h2>
         <form id="newForm"
@@ -128,75 +128,38 @@
               action="@(Url.RouteUrl("Default", new { action = "New", controller = "Groups" }))">
             @Html.AntiForgeryToken()
             <div class="form-group">
-                @Html.LabelFor( x => newGroup.Name)
-                
-                <input type="number"
-                       id="@(nameof(Group.Name).ToLower())"
-                       name="@(nameof(Group.Name).ToLower())" 
+                @* @Html.LabelFor(x => newGroup.Name) *@
+                <label for="@(nameof(Group.Name))">名稱</label>
+                <input id="@(nameof(Group.Name))"
+                       name="@(nameof(Group.Name))"
                        class="form-control" />
-                
-                <label id="@(nameof(Group.Name).ToLower())-error" 
-                       class="error" 
-                       for="@(nameof(Group.Name).ToLower())" 
+
+                <label id="@(nameof(Group.Name))-error"
+                       class="error"
+                       for="@(nameof(Group.Name))"
                        style="display: none;"></label>
             </div>
             @* <div class="checkbox"> *@
             @*     <label><input type="checkbox"> Remember me</label> *@
             @* </div> *@
             <button type="button"
-                    id = "newFormSubmit"
+                    id="newFormSubmit"
                     form="newForm"
-                    class="btn btn-success">Submit</button>
+                    class="btn btn-success">
+                Submit
+            </button>
         </form>
     </div>
-    
-    <script>    
+
+    <script>
+
         window.addEventListener("load", function (event) {
           let validateNewFormUrl = "@(Url.RouteUrl("Default", new { action = "ValidateNew", controller = "Groups" }))"
-                
+
           $("#newFormSubmit").click(function (event) {
             let formData = $("#newForm").serialize();
-            ValidateNew(formData);
+            CustomValidator.RemoteValidate(validateNewFormUrl, formData);
           });
-        
-          function SetErrorMessage(id, errorMessage){
-            $('#'+id).show().val(errorMessage);
-          }
-          
-          function UnsetErrorMessage(id){
-            $('#'+id).hide();                
-          }
-          
-          function ValidateNew(formData) {
-            $.ajax({
-              url: validateNewFormUrl,
-              type: "post",
-              data: formData,
-              success: function (response) {
-                  if(response.IsValid)
-                  {
-                      $('#newForm').submit();
-                  } else {
-                      // name
-                      let nameErrorLabelId = '@(nameof(Group.Name).ToLower())-error'; 
-                      if(response.name.isvalid === false)
-                      {
-                          var errorMessage = response.name.errors.join(',');
-                          SetErrorMessage(nameErrorLabelId, errorMessage);
-                      }
-                      else
-                      {
-                          UnsetErrorMessage(nameErrorLabelId);
-                      }
-                      
-                  }
-              },
-              error: function (response) {
-                console.log("error");
-                console.log(response);
-              },
-            });
-          }
         });
 
     </script>
@@ -211,21 +174,21 @@
 {
     <form method="post" id="deleteForm" style="display: none">
         @Html.AntiForgeryToken()
-        <input id="deleteGroup"/>
+        <input id="deleteGroup" />
     </form>
 }
 
 @section bottomScripts {
     @Html.Partial("_FancyboxReference")
-    
+    <script src="~/Scripts/CustomValidator.js"></script>
     <script>
         function DeleteGroup(id){
             let confirmResult = confirm('確認是否刪除 GroupID: '+id+' ?');
             if(confirmResult === false)
                 return;
-            
+
              $('#deleteGroup').val(id);
-             
+
             let deleteActionUrl = "@(Url.RouteUrl("Default", new { action = "Delete", controller = "Groups"}))";
              $('#deleteForm').prop("action",deleteActionUrl + '/' + id)
                              .submit();
