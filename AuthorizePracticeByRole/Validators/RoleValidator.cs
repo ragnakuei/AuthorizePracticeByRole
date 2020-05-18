@@ -1,26 +1,26 @@
-﻿using DAL.Entities;
+using DAL.Entities;
 using DAL.Repository.@interface;
 using SharedLibrary.Models;
 
 namespace AuthorizePracticeByRole.Validators
 {
-    public class GroupValidator : IGroupValidator
+    public class RoleValidator : IRoleValidator
     {
-        private readonly IGroupRepository _groupRepository;
+        private readonly IRoleRepository _groupRepository;
 
-        public GroupValidator(IGroupRepository groupRepository)
+        public RoleValidator(IRoleRepository groupRepository)
         {
             _groupRepository = groupRepository;
         }
 
-        public ValidateResultGroup ValidateNew(Group newGroup)
+        public ValidateResultRole ValidateNew(Role newRole)
         {
-            var result = new ValidateResultGroup
+            var result = new ValidateResultRole
                          {
-                             Id = new ValidateResult(),
+                             Id   = new ValidateResult(),
                              Name = new ValidateResult()
                          };
-            ValidateName(result.Name, newGroup.Name);
+            ValidateName(result.Name, newRole.Name);
             return result;
         }
 

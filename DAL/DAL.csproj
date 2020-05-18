@@ -129,7 +129,9 @@
     <Compile Include="Repository\GroupRepository.cs" />
     <Compile Include="Repository\interface\IAuthorizeRepository.cs" />
     <Compile Include="Repository\interface\IGroupRepository.cs" />
+    <Compile Include="Repository\interface\IRoleRepository.cs" />
     <Compile Include="Repository\interface\IUserRepository.cs" />
+    <Compile Include="Repository\RoleRepository.cs" />
     <Compile Include="Repository\SpStore.cs" />
     <Compile Include="Repository\UserRepository.cs" />
   </ItemGroup>

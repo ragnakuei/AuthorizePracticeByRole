@@ -236,6 +236,7 @@
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
     <Content Include="Views\Admin\Groups\Index.cshtml" />
+    <Content Include="Views\Admin\Roles\Index.cshtml" />
     <Content Include="Views\Shared\_FancyboxReference.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Scripts\umd\popper.min.js.map" />
@@ -252,6 +253,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Consts\RoleConst.cs" />
     <Compile Include="Controllers\Admin\GroupsController.cs" />
+    <Compile Include="Controllers\Admin\RolesController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -270,9 +272,12 @@
     <Compile Include="Infra\Helpers\LoggerHelper.cs" />
     <Compile Include="Validators\GroupValidator.cs" />
     <Compile Include="Validators\IGroupValidator.cs" />
+    <Compile Include="Validators\IRoleValidator.cs" />
+    <Compile Include="Validators\RoleValidator.cs" />
     <Compile Include="ViewModels\GroupViewModel.cs" />
     <Compile Include="ViewModels\LoginForm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\RoleViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -294,7 +299,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Admin" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DAL\DAL.csproj">

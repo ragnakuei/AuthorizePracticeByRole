@@ -35,17 +35,20 @@ namespace AuthorizePracticeByRole.DI
         static DiResolver()
         {
             var service = new ServiceCollection();
-            
+
             service.AddTransient<AuthController>();
             service.AddTransient<HomeController>();
             service.AddTransient<ErrorController>();
             service.AddTransient<MemberController>();
             service.AddTransient<GroupsController>();
+            service.AddTransient<RolesController>();
 
             service.AddScoped<IGroupValidator, GroupValidator>();
+            service.AddScoped<IRoleValidator, RoleValidator>();
             service.AddScoped<IUserRepository, UserRepository>();
             service.AddScoped<IAuthorizeRepository, AuthorizeRepository>();
             service.AddScoped<IGroupRepository, GroupRepository>();
+            service.AddScoped<IRoleRepository, RoleRepository>();
             _provider = service.BuildServiceProvider();
         }
 
@@ -92,7 +95,7 @@ namespace AuthorizePracticeByRole.DI
         {
             return type?.GetProperties()
                         .Where(p => ContainsDiPropertyAttribute(p))
-                ?? Enumerable.Empty<PropertyInfo>() ;
+                ?? Enumerable.Empty<PropertyInfo>();
         }
 
         /// <summary>

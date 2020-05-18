@@ -54,6 +54,7 @@
     <Compile Include="Models\UserDto.cs" />
     <Compile Include="Models\ValidateResult.cs" />
     <Compile Include="Models\ValidateResultGroup.cs" />
+    <Compile Include="Models\ValidateResultRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
