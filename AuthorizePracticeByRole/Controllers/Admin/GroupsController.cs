@@ -6,8 +6,6 @@ using AuthorizePracticeByRole.Validators;
 using AuthorizePracticeByRole.ViewModels;
 using DAL.Entities;
 using DAL.Repository.@interface;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 
 namespace AuthorizePracticeByRole.Controllers.Admin
 {
@@ -31,7 +29,7 @@ namespace AuthorizePracticeByRole.Controllers.Admin
                                      Groups = _groupRepository.GetList(),
                                      EditId = id,
                                  };
-            return View(groupViewModel);
+            return View("~/Views/Admin/Groups/Index.cshtml", groupViewModel);
         }
         
         [HttpPost]
@@ -54,7 +52,11 @@ namespace AuthorizePracticeByRole.Controllers.Admin
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Group item)
         {
-            _groupRepository.Update(item);
+            if (item.Id != 1)
+            {
+                _groupRepository.Update(item);
+            }
+
             return RedirectToAction("Index");
         }
         
@@ -62,7 +64,11 @@ namespace AuthorizePracticeByRole.Controllers.Admin
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
-            _groupRepository.Delete(id);
+            if (id != 1)
+            {
+                _groupRepository.Delete(id);
+            }
+            
             return RedirectToAction("Index");
         }
     }
