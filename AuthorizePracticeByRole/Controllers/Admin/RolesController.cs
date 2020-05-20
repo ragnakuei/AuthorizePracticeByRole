@@ -6,6 +6,7 @@ using AuthorizePracticeByRole.Validators;
 using AuthorizePracticeByRole.ViewModels;
 using DAL.Entities;
 using DAL.Repository.@interface;
+using SharedLibrary.Models;
 
 namespace AuthorizePracticeByRole.Controllers.Admin
 {
@@ -41,11 +42,19 @@ namespace AuthorizePracticeByRole.Controllers.Admin
         }
         
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult ValidateNew(Role newRole)
+        // TODO: 需要等 @Html.AntiForgeryToken() 可以支援改名稱後，才可以加下面的限制
+        // [ValidateAntiForgeryToken]
+        public ActionResult ValidateNew(RoleValidateModel newRole)
         {
-            var validateResult = _groupValidator.ValidateNew(newRole);
-            return Json(validateResult);
+            var validateResult = _groupValidator.ValidateName(newRole.Name);
+            if (string.IsNullOrWhiteSpace(validateResult))
+            {
+                return Json(true);
+            }
+            else
+            {
+                return Json(validateResult);
+            }
         }
         
         [HttpPost]

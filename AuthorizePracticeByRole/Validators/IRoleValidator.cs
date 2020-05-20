@@ -5,6 +5,8 @@ namespace AuthorizePracticeByRole.Validators
 {
     public interface IRoleValidator
     {
-        ValidateResultRole ValidateNew(Role newRole);
+        ValidateResultRole ValidateNew(RoleValidateModel newRole);
+        
+        string ValidateName(string name);
     }
 }

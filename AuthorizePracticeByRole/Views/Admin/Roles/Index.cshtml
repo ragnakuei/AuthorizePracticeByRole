@@ -1,4 +1,5 @@
 ﻿@using DAL.Entities
+@using SharedLibrary.Models
 @model AuthorizePracticeByRole.ViewModels.RoleViewModel
 
 @{
@@ -107,8 +108,6 @@
 
 @helper NewRoleDiv()
 {
-    var newRole = new Role();
-
     <style>
         .error {
             color: red;
@@ -121,6 +120,8 @@
         */
     </style>
 
+    var newRole = new RoleValidateModel();
+    
     <div style="display: none;" id="newRole" class="animated-modal">
         <h2>New</h2>
         <form id="newForm"
@@ -128,20 +129,10 @@
               action="@(Url.RouteUrl("Default", new { action = "New", controller = "Roles" }))">
             @Html.AntiForgeryToken()
             <div class="form-group">
-                @* @Html.LabelFor(x => newRole.Name) *@
-                <label for="@(nameof(Role.Name))">名稱</label>
-                <input id="@(nameof(Role.Name))"
-                       name="@(nameof(Role.Name))"
-                       class="form-control" />
-
-                <label id="@(nameof(Role.Name))-error"
-                       class="error"
-                       for="@(nameof(Role.Name))"
-                       style="display: none;"></label>
+                @Html.LabelFor(x => newRole.Name)
+                @Html.EditorFor(model => newRole.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => newRole.Name, "", new { @class = "text-danger" })
             </div>
-            @* <div class="checkbox"> *@
-            @*     <label><input type="checkbox"> Remember me</label> *@
-            @* </div> *@
             <button type="button"
                     id="newFormSubmit"
                     form="newForm"
@@ -150,19 +141,6 @@
             </button>
         </form>
     </div>
-
-    <script>
-
-        window.addEventListener("load", function (event) {
-          let validateNewFormUrl = "@(Url.RouteUrl("Default", new { action = "ValidateNew", controller = "Roles" }))"
-
-          $("#newFormSubmit").click(function (event) {
-            let formData = $("#newForm").serialize();
-            CustomValidator.RemoteValidate(validateNewFormUrl, formData);
-          });
-        });
-
-    </script>
 }
 
 @helper GenerateDeleteButton(Role item)
@@ -180,8 +158,15 @@
 
 @section bottomScripts {
     @Html.Partial("_FancyboxReference")
-    <script src="~/Scripts/CustomValidator.js"></script>
+    
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
     <script>
+        $.validator.setDefaults({
+           // 設定為不在 onkeyup 就立即驗証
+           onkeyup: false
+        })
+        
         function DeleteRole(id){
             let confirmResult = confirm('確認是否刪除 RoleID: '+id+' ?');
             if(confirmResult === false)

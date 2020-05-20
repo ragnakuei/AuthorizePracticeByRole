@@ -13,7 +13,7 @@ namespace AuthorizePracticeByRole.Validators
             _groupRepository = groupRepository;
         }
 
-        public ValidateResultRole ValidateNew(Role newRole)
+        public ValidateResultRole ValidateNew(RoleValidateModel newRole)
         {
             var result = new ValidateResultRole
                          {
@@ -24,6 +24,13 @@ namespace AuthorizePracticeByRole.Validators
             return result;
         }
 
+        public string ValidateName(string name)
+        {
+            var result = new ValidateResult();
+            ValidateName(result, name);
+            return string.Join(",", result.Errors);
+        }
+        
         private void ValidateName(ValidateResult validateResult, string name)
         {
             if (string.IsNullOrEmpty(name))
@@ -33,14 +40,14 @@ namespace AuthorizePracticeByRole.Validators
                 return;
             }
 
-            var minLength = 2;
+            var minLength = 3;
             if (name.Length < minLength)
             {
                 validateResult.IsValid = false;
                 validateResult.Errors.Add($"Name 長度不可以小於 {minLength}");
             }
 
-            var maxLength = 50;
+            var maxLength = 9;
             if (name.Length > maxLength)
             {
                 validateResult.IsValid = false;
