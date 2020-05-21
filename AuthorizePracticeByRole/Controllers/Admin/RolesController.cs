@@ -42,8 +42,7 @@ namespace AuthorizePracticeByRole.Controllers.Admin
         }
         
         [HttpPost]
-        // TODO: 需要等 @Html.AntiForgeryToken() 可以支援改名稱後，才可以加下面的限制
-        // [ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
         public ActionResult ValidateNew(RoleValidateModel newRole)
         {
             var validateResult = _groupValidator.ValidateName(newRole.Name);

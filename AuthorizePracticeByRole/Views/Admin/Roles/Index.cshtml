@@ -18,44 +18,44 @@
     @Html.AntiForgeryToken()
     <table class="table">
         <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Roles.First().Id)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Roles.First().Name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Roles.First().Created)
-                </th>
-                <th>
-                    Actions
-                </th>
-            </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Roles.First().Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Roles.First().Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Roles.First().Created)
+            </th>
+            <th>
+                Actions
+            </th>
+        </tr>
         </thead>
 
         <tbody>
-            @foreach (var item in Model.Roles)
-            {
-                <tr>
-                    @{
-                        var isEditMode = Model.EditId == item.Id;
-                    }
-                    @if (isEditMode)
-                    {
-                        @EditRole(item)
-                    }
-                    else
-                    {
-                        @DisplayRole(item)
-                    }
-                    <td>
-                        @GenerateEditOrCancelLink(isEditMode, item)
-                        @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-info" })
-                        @GenerateDeleteButton(item)
-                    </td>
-                </tr>
-            }
+        @foreach (var item in Model.Roles)
+        {
+            <tr>
+                @{
+                    var isEditMode = Model.EditId == item.Id;
+                }
+                @if (isEditMode)
+                {
+                    @EditRole(item)
+                }
+                else
+                {
+                    @DisplayRole(item)
+                }
+                <td>
+                    @GenerateEditOrCancelLink(isEditMode, item)
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-info" })
+                    @GenerateDeleteButton(item)
+                </td>
+            </tr>
+        }
         </tbody>
     </table>
 </form>
@@ -98,11 +98,23 @@
     if (isEditMode)
     {
         <button class="btn btn-success" type="submit">Save</button>
-        @Html.ActionLink("Cancel", "Index", new { id = (int?)null }, new { @class = "btn btn-warning" })
+        @Html.ActionLink("Cancel", "Index", new
+                                            {
+                                                id = (int?)null
+                                            }, new
+                                               {
+                                                   @class = "btn btn-warning"
+                                               })
     }
     else
     {
-        @Html.ActionLink("Edit", "Index", new { id = item.Id }, new { @class = "btn btn-primary" })
+        @Html.ActionLink("Edit", "Index", new
+                                          {
+                                              id = item.Id
+                                          }, new
+                                             {
+                                                 @class = "btn btn-primary"
+                                             })
     }
 }
 
@@ -121,7 +133,7 @@
     </style>
 
     var newRole = new RoleValidateModel();
-    
+
     <div style="display: none;" id="newRole" class="animated-modal">
         <h2>New</h2>
         <form id="newForm"
@@ -130,10 +142,17 @@
             @Html.AntiForgeryToken()
             <div class="form-group">
                 @Html.LabelFor(x => newRole.Name)
-                @Html.EditorFor(model => newRole.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => newRole.Name
+                                , new
+                                  {
+                                      htmlAttributes = new { 
+                                                               @class = "form-control"
+                                                             , data_val_remote_additionalfields = "__RequestVerificationToken" 
+                                                           }
+                                  })
                 @Html.ValidationMessageFor(model => newRole.Name, "", new { @class = "text-danger" })
             </div>
-            <button type="button"
+            <button type="submit"
                     id="newFormSubmit"
                     form="newForm"
                     class="btn btn-success">
@@ -152,13 +171,13 @@
 {
     <form method="post" id="deleteForm" style="display: none">
         @Html.AntiForgeryToken()
-        <input id="deleteRole" />
+        <input id="deleteRole"/>
     </form>
 }
 
 @section bottomScripts {
     @Html.Partial("_FancyboxReference")
-    
+
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
     <script>
@@ -174,7 +193,11 @@
 
              $('#deleteRole').val(id);
 
-            let deleteActionUrl = "@(Url.RouteUrl("Default", new { action = "Delete", controller = "Roles"}))";
+            let deleteActionUrl = "@(Url.RouteUrl("Default", new
+                                                             {
+                                                                 action = "Delete",
+                                                                 controller = "Roles"
+                                                             }))";
              $('#deleteForm').prop("action",deleteActionUrl + '/' + id)
                              .submit();
         }

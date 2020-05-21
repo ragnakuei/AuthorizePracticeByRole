@@ -6,6 +6,8 @@ namespace SharedLibrary.Models
 {
     public class RoleValidateModel
     {
+        public int Id { get; set; }
+        
         [Remote(action : "ValidateNew"
               , controller : "Roles"
               , AdditionalFields = "Id,__RequestVerificationToken"
