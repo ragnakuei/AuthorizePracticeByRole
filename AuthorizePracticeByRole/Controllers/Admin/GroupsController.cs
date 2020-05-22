@@ -4,8 +4,8 @@ using AuthorizePracticeByRole.Infra;
 using AuthorizePracticeByRole.Infra.Attributes;
 using AuthorizePracticeByRole.Validators;
 using AuthorizePracticeByRole.ViewModels;
-using DAL.Entities;
 using DAL.Repository.@interface;
+using SharedLibrary.Entities;
 
 namespace AuthorizePracticeByRole.Controllers.Admin
 {
@@ -30,6 +30,13 @@ namespace AuthorizePracticeByRole.Controllers.Admin
                                      EditId = id,
                                  };
             return View("~/Views/Admin/Groups/Index.cshtml", groupViewModel);
+        }
+        
+        [HttpGet]
+        public ActionResult Detail(int id)
+        {
+            var detail = _groupRepository.GetDetail(id);
+            return View("~/Views/Admin/Groups/Detail.cshtml", detail);
         }
         
         [HttpPost]

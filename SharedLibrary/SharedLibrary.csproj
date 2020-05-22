@@ -78,12 +78,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Group.cs" />
+    <Compile Include="Entities\GroupRole.cs" />
+    <Compile Include="Entities\Role.cs" />
+    <Compile Include="Entities\User.cs" />
+    <Compile Include="Entities\UserGroup.cs" />
     <Compile Include="Helpers\DataTableStringWithSerialGenerator.cs" />
     <Compile Include="Helpers\DataTableWithSerialGenerator.cs" />
     <Compile Include="Helpers\PasswordHelpers.cs" />
     <Compile Include="Models\AuthorizationDto.cs" />
     <Compile Include="Models\AuthResultDto.cs" />
     <Compile Include="Models\CustomException.cs" />
+    <Compile Include="Models\GroupDetailViewModel.cs" />
     <Compile Include="Models\RoleValidateModel.cs" />
     <Compile Include="Models\UserDto.cs" />
     <Compile Include="Models\ValidateResult.cs" />

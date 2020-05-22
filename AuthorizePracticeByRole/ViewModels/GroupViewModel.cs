@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using DAL.Entities;
+using SharedLibrary.Entities;
 
 namespace AuthorizePracticeByRole.ViewModels
 {

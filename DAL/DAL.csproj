@@ -113,16 +113,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\Group.cs">
-    </Compile>
-    <Compile Include="Entities\GroupRole.cs">
-    </Compile>
-    <Compile Include="Entities\Role.cs">
-    </Compile>
-    <Compile Include="Entities\User.cs">
-    </Compile>
-    <Compile Include="Entities\UserGroup.cs">
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\AuthorizeRepository.cs" />
     <Compile Include="Repository\BaseRepository.cs" />

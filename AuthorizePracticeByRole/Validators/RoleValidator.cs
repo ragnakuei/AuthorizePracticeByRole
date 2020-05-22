@@ -1,4 +1,3 @@
-using DAL.Entities;
 using DAL.Repository.@interface;
 using SharedLibrary.Models;
 

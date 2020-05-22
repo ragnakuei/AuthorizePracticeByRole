@@ -240,6 +240,7 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="Views\Admin\Groups\Detail.cshtml" />
     <Content Include="Views\Admin\Groups\Index.cshtml" />
     <Content Include="Views\Admin\Roles\Index.cshtml" />
     <Content Include="Views\Shared\_FancyboxReference.cshtml" />

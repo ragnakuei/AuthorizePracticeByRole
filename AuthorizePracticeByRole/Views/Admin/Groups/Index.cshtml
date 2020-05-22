@@ -1,4 +1,4 @@
-﻿@using DAL.Entities
+﻿@using SharedLibrary.Entities
 @model AuthorizePracticeByRole.ViewModels.GroupViewModel
 
 @{
@@ -50,7 +50,7 @@
                     }
                     <td>
                         @GenerateEditOrCancelLink(isEditMode, item)
-                        @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-info" })
+                        @Html.ActionLink("Details", "Detail", new { id = item.Id }, new { @class = "btn btn-info" })
                         @GenerateDeleteButton(item)
                     </td>
                 </tr>

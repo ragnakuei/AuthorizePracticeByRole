@@ -4,8 +4,8 @@ using AuthorizePracticeByRole.Infra;
 using AuthorizePracticeByRole.Infra.Attributes;
 using AuthorizePracticeByRole.Validators;
 using AuthorizePracticeByRole.ViewModels;
-using DAL.Entities;
 using DAL.Repository.@interface;
+using SharedLibrary.Entities;
 using SharedLibrary.Models;
 
 namespace AuthorizePracticeByRole.Controllers.Admin

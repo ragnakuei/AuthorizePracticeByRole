@@ -1,6 +1,4 @@
-using System.ComponentModel.DataAnnotations;
-
-namespace DAL.Entities
+namespace SharedLibrary.Entities
 {
     public class UserGroup
     {

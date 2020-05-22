@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using DAL.Entities;
 using DAL.Repository.@interface;
 using Dapper;
+using SharedLibrary.Entities;
 
 namespace DAL.Repository
 {

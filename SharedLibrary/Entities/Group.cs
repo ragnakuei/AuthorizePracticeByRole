@@ -1,8 +1,7 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace DAL.Entities
+namespace SharedLibrary.Entities
 {
     public class Group
     {

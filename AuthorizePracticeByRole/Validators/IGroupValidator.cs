@@ -1,4 +1,4 @@
-﻿using DAL.Entities;
+﻿using SharedLibrary.Entities;
 using SharedLibrary.Models;
 
 namespace AuthorizePracticeByRole.Validators

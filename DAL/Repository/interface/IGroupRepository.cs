@@ -1,11 +1,14 @@
 ﻿using System.Collections.Generic;
-using DAL.Entities;
+using SharedLibrary.Entities;
+using SharedLibrary.Models;
 
 namespace DAL.Repository.@interface
 {
     public interface IGroupRepository
     {
         IEnumerable<Group> GetList();
+
+        GroupDetailViewModel GetDetail(int id);
 
         void New(Group g);
 

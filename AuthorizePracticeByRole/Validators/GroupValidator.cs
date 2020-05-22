@@ -1,5 +1,5 @@
-﻿using DAL.Entities;
-using DAL.Repository.@interface;
+﻿using DAL.Repository.@interface;
+using SharedLibrary.Entities;
 using SharedLibrary.Models;
 
 namespace AuthorizePracticeByRole.Validators
