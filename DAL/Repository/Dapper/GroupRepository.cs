@@ -27,7 +27,7 @@ FROM [dbo].[Group]
         public GroupDetailViewModel GetDetail(int id)
         {
             var sqlScript = @"
-SELECT [g].[Id], [Name], [Created]
+SELECT [g].[Id], [g].[Name], [g].[Created]
 FROM [dbo].[Group] [g]
 WHERE [Id] = @id
 

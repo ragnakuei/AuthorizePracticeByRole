@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
 using System.Linq;
 using DAL.Repository.@interface;
@@ -23,7 +24,7 @@ namespace DAL.Repository.EntityFramework
         public GroupDetailViewModel GetDetail(int id)
         {
             var sqlScript = @"
-SELECT [g].[Id], [Name], [Created]
+SELECT [g].[Id], [g].[Name], [g].[Created]
 FROM [dbo].[Group] [g]
 WHERE [Id] = @id
 
@@ -39,15 +40,29 @@ FROM [dbo].[GroupRole] [gr]
               ON [gr].[RoleId] = [r].[Id]
 WHERE [gr].[GroupId] = @id
 ";
-            var parameters = new DynamicParameters();
-            parameters.Add("id", id, DbType.Int32);
             var result = new GroupDetailViewModel();
-            using (var conn = new SqlConnection(ConnectionString))
+            using (var dbContext = new EfDbContext())
             {
-                var reader =  conn.QueryMultiple(sqlScript, parameters);
-                result.Group = reader.Read<Group>().FirstOrDefault();
-                result.UserNames = reader.Read<string>();
-                result.RoleNames = reader.Read<string>();
+
+                var command = dbContext.Database.Connection.CreateCommand();
+                command.CommandText = sqlScript;
+                command.CommandType = CommandType.Text;
+                command.Parameters.Clear();
+                
+                var parameter = new SqlParameter(parameterName : "id", value : id) { SqlDbType = SqlDbType.Int };
+                command.Parameters.Add(parameter);
+
+                dbContext.Database.Connection.Open();
+                using (var reader = command.ExecuteReader())
+                {
+                    var objectContextAdapter = ((IObjectContextAdapter)dbContext).ObjectContext;
+
+                    result.Group = objectContextAdapter.Translate<Group>(reader).FirstOrDefault();
+                    reader.NextResult();
+                    result.UserNames = objectContextAdapter.Translate<string>(reader).ToArray();
+                    reader.NextResult();
+                    result.RoleNames = objectContextAdapter.Translate<string>(reader).ToArray();
+                }
             }
             return result;
         }
