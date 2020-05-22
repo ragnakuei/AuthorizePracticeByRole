@@ -5,7 +5,7 @@ using DAL.Repository.@interface;
 using Dapper;
 using SharedLibrary.Models;
 
-namespace DAL.Repository
+namespace DAL.Repository.Dapper
 {
     public class UserRepository : BaseRepository, IUserRepository
     {

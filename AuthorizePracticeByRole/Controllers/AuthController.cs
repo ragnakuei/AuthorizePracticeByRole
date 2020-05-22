@@ -3,7 +3,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using AuthorizePracticeByRole.Infra;
-using AuthorizePracticeByRole.Models;
+using AuthorizePracticeByRole.ViewModels;
 using DAL.Repository.@interface;
 using Newtonsoft.Json;
 using SharedLibrary.Helpers;

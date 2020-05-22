@@ -6,7 +6,7 @@ using Dapper;
 using SharedLibrary.Helpers;
 using SharedLibrary.Models;
 
-namespace DAL.Repository
+namespace DAL.Repository.Dapper
 {
     public class AuthorizeRepository : BaseRepository, IAuthorizeRepository
     {

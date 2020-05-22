@@ -6,7 +6,6 @@ using System.Web.Mvc;
 using AuthorizePracticeByRole.Controllers;
 using AuthorizePracticeByRole.Controllers.Admin;
 using AuthorizePracticeByRole.Validators;
-using DAL.Repository;
 using DAL.Repository.@interface;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -45,10 +44,10 @@ namespace AuthorizePracticeByRole.DI
 
             service.AddScoped<IGroupValidator, GroupValidator>();
             service.AddScoped<IRoleValidator, RoleValidator>();
-            service.AddScoped<IUserRepository, UserRepository>();
-            service.AddScoped<IAuthorizeRepository, AuthorizeRepository>();
-            service.AddScoped<IGroupRepository, GroupRepository>();
-            service.AddScoped<IRoleRepository, RoleRepository>();
+            service.AddScoped<IUserRepository, DAL.Repository.Dapper.UserRepository>();
+            service.AddScoped<IAuthorizeRepository, DAL.Repository.Dapper.AuthorizeRepository>();
+            service.AddScoped<IGroupRepository, DAL.Repository.EntityFramework.GroupRepository>();
+            service.AddScoped<IRoleRepository, DAL.Repository.Dapper.RoleRepository>();
             _provider = service.BuildServiceProvider();
         }
 

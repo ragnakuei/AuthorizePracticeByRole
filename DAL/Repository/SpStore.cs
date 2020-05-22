@@ -1,4 +1,4 @@
-﻿namespace DAL
+﻿namespace DAL.Repository
 {
     /// <summary>
     /// 集中管理被使用到的 Stored Procedure

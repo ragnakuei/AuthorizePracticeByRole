@@ -8,19 +8,15 @@ using Dapper;
 using SharedLibrary.Entities;
 using SharedLibrary.Models;
 
-namespace DAL.Repository
+namespace DAL.Repository.EntityFramework
 {
-    public class GroupRepository : BaseRepository, IGroupRepository
+    public class GroupRepository : IGroupRepository
     {
         public IEnumerable<Group> GetList()
         {
-            var sqlScript = @"
-SELECT *
-FROM [dbo].[Group]
-";
-            using (var conn = new SqlConnection(ConnectionString))
+            using (var dbContext = new EfDbContext())
             {
-                return conn.Query<Group>(sqlScript);
+                return dbContext.Groups.ToArray();
             }
         }
 
@@ -55,6 +51,8 @@ WHERE [gr].[GroupId] = @id
             }
             return result;
         }
+
+        public string ConnectionString { get; set; }
 
         public void New(Group g)
         {

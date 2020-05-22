@@ -6,7 +6,7 @@ using DAL.Repository.@interface;
 using Dapper;
 using SharedLibrary.Entities;
 
-namespace DAL.Repository
+namespace DAL.Repository.Dapper
 {
     public class RoleRepository : BaseRepository, IRoleRepository
     {

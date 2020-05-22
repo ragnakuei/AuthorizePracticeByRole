@@ -1,6 +1,6 @@
 ﻿using System.Configuration;
 
-namespace DAL.Repository
+namespace DAL.Repository.Dapper
 {
     public abstract class BaseRepository
     {
