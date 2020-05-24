@@ -6,7 +6,6 @@ namespace DAL.Repository.EntityFramework
     public class EfDbContext : DbContext
     {
         public EfDbContext()
-            : base("name=AuthorizePracticeByRole")
         {
         }
 

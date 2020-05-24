@@ -128,6 +128,7 @@
     <Compile Include="Repository\Dapper\GroupRepository.cs" />
     <Compile Include="Repository\Dapper\RoleRepository.cs" />
     <Compile Include="Repository\Dapper\UserRepository.cs" />
+    <Compile Include="Repository\EntityFramework\DbContextFactory.cs" />
     <Compile Include="Repository\EntityFramework\EfDbContext.cs" />
     <Compile Include="Repository\EntityFramework\GroupRepository.cs" />
     <Compile Include="Repository\interface\IAuthorizeRepository.cs" />

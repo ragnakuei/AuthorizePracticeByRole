@@ -15,7 +15,7 @@ namespace DAL.Repository.EntityFramework
     {
         public IEnumerable<Group> GetList()
         {
-            using (var dbContext = new EfDbContext())
+            using (var dbContext = DbContextFactory.CreateEfDbContext())
             {
                 return dbContext.Groups.ToArray();
             }
@@ -41,15 +41,17 @@ FROM [dbo].[GroupRole] [gr]
 WHERE [gr].[GroupId] = @id
 ";
             var result = new GroupDetailViewModel();
-            using (var dbContext = new EfDbContext())
+            using (var dbContext = DbContextFactory.CreateEfDbContext())
             {
-
                 var command = dbContext.Database.Connection.CreateCommand();
                 command.CommandText = sqlScript;
                 command.CommandType = CommandType.Text;
                 command.Parameters.Clear();
-                
-                var parameter = new SqlParameter(parameterName : "id", value : id) { SqlDbType = SqlDbType.Int };
+
+                var parameter = new SqlParameter(parameterName : "id", value : id)
+                                {
+                                    SqlDbType = SqlDbType.Int
+                                };
                 command.Parameters.Add(parameter);
 
                 dbContext.Database.Connection.Open();
@@ -64,6 +66,7 @@ WHERE [gr].[GroupId] = @id
                     result.RoleNames = objectContextAdapter.Translate<string>(reader).ToArray();
                 }
             }
+
             return result;
         }
 
@@ -71,16 +74,10 @@ WHERE [gr].[GroupId] = @id
 
         public void New(Group g)
         {
-            var sqlScript = @"
-INSERT INTO [dbo].[Group] ([Name], [Created])
-VALUES (@name, @created);
-";
-            var parameters = new DynamicParameters();
-            parameters.Add("Name",    g.Name,       DbType.String, size : 50);
-            parameters.Add("Created", DateTime.Now, DbType.DateTime);
-            using (var conn = new SqlConnection(ConnectionString))
+            using (var dbContext = DbContextFactory.CreateEfDbContext())
             {
-                conn.Execute(sqlScript, parameters);
+                dbContext.Groups.Add(g);
+                dbContext.SaveChanges();
             }
         }
 
