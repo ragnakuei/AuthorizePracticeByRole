@@ -6,7 +6,6 @@ using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
 using System.Linq;
 using DAL.Repository.@interface;
-using Dapper;
 using SharedLibrary.Entities;
 using SharedLibrary.Models;
 
