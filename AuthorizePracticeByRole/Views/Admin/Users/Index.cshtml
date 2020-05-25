@@ -1,0 +1,197 @@
+﻿@using SharedLibrary.Entities
+@model AuthorizePracticeByRole.ViewModels.UserViewModel
+
+@{
+    ViewBag.Title = "Groups";
+}
+
+<h2>Groups</h2>
+<button class="btn btn-primary"
+        type="button"
+        data-fancybox
+        data-animation-duration="700"
+        data-src="#newGroup">
+    New
+</button>
+<form method="post" id="editForm" action="@(Url.RouteUrl("Default", new { action = "Edit", controller = "Groups", id = Model.EditId }))">
+    @Html.AntiForgeryToken()
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Groups.First().Id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Groups.First().Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Groups.First().Created)
+                </th>
+                <th>
+                    Actions
+                </th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model.Groups)
+            {
+                <tr>
+                    @{
+                        var isEditMode = Model.EditId == item.Id;
+                    }
+                    @if (isEditMode)
+                    {
+                        @EditGroup(item)
+                    }
+                    else
+                    {
+                        @DisplayGroup(item)
+                    }
+                    <td>
+                        @GenerateEditOrCancelLink(isEditMode, item)
+                        @Html.ActionLink("Details", "Detail", new { id = item.Id }, new { @class = "btn btn-info" })
+                        @GenerateDeleteButton(item)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</form>
+
+@NewGroupDiv()
+
+@DeleteForm()
+
+@* ******************************************************************************************************************** *@
+
+@helper EditGroup(Group item)
+{
+    <td>
+        @Html.DisplayFor(modelItem => item.Id)
+        @Html.HiddenFor(modelItem => item.Id)
+    </td>
+    <td>
+        @Html.EditorFor(modelItem => item.Name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Created)
+    </td>
+}
+
+@helper DisplayGroup(Group item)
+{
+    <td>
+        @Html.DisplayFor(modelItem => item.Id)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Created)
+    </td>
+}
+
+@helper GenerateEditOrCancelLink(bool isEditMode, Group item)
+{
+    if (isEditMode)
+    {
+        <button class="btn btn-success" type="submit">Save</button>
+        @Html.ActionLink("Cancel", "Index", new { id = (int?)null }, new { @class = "btn btn-warning" })
+    }
+    else
+    {
+        @Html.ActionLink("Edit", "Index", new { id = item.Id }, new { @class = "btn btn-primary" })
+    }
+}
+
+@helper NewGroupDiv()
+{
+    var newGroup = new Group();
+
+    <style>
+        .error {
+            color: red;
+            margin-left: 5px;
+        }
+        /*
+            label.error {
+              display: inline;
+            }
+        */
+    </style>
+
+    <div style="display: none;" id="newGroup" class="animated-modal">
+        <h2>New</h2>
+        <form id="newForm"
+              method="post"
+              action="@(Url.RouteUrl("Default", new { action = "New", controller = "Groups" }))">
+            @Html.AntiForgeryToken()
+            <div class="form-group">
+                @* @Html.LabelFor(x => newGroup.Name) *@
+                <label for="@(nameof(Group.Name))">名稱</label>
+                <input id="@(nameof(Group.Name))"
+                       name="@(nameof(Group.Name))"
+                       class="form-control" />
+
+                <label id="@(nameof(Group.Name))-error"
+                       class="error"
+                       for="@(nameof(Group.Name))"
+                       style="display: none;"></label>
+            </div>
+            @* <div class="checkbox"> *@
+            @*     <label><input type="checkbox"> Remember me</label> *@
+            @* </div> *@
+            <button type="button"
+                    id="newFormSubmit"
+                    form="newForm"
+                    class="btn btn-success">
+                Submit
+            </button>
+        </form>
+    </div>
+
+    <script>
+
+        window.addEventListener("load", function (event) {
+          let validateNewFormUrl = "@(Url.RouteUrl("Default", new { action = "ValidateNew", controller = "Groups" }))"
+
+          $("#newFormSubmit").click(function (event) {
+            let formData = $("#newForm").serialize();
+            CustomValidator.RemoteValidate(validateNewFormUrl, formData);
+          });
+        });
+
+    </script>
+}
+
+@helper GenerateDeleteButton(Group item)
+{
+    <button class="btn btn-danger" type="button" onclick="DeleteGroup(@(item.Id))">Delete</button>
+}
+
+@helper DeleteForm()
+{
+    <form method="post" id="deleteForm" style="display: none">
+        @Html.AntiForgeryToken()
+        <input id="deleteGroup" />
+    </form>
+}
+
+@section bottomScripts {
+    @Html.Partial("_FancyboxReference")
+    <script src="~/Scripts/CustomValidator.js"></script>
+    <script>
+        function DeleteGroup(id){
+            let confirmResult = confirm('確認是否刪除 GroupID: '+id+' ?');
+            if(confirmResult === false)
+                return;
+
+             $('#deleteGroup').val(id);
+
+            let deleteActionUrl = "@(Url.RouteUrl("Default", new { action = "Delete", controller = "Groups"}))";
+             $('#deleteForm').prop("action",deleteActionUrl + '/' + id)
+                             .submit();
+        }
+    </script>
+}

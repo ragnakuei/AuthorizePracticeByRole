@@ -44,6 +44,7 @@ namespace AuthorizePracticeByRole.DI
 
             service.AddScoped<IGroupValidator, GroupValidator>();
             service.AddScoped<IRoleValidator, RoleValidator>();
+            service.AddScoped<IUserValidator, UserValidator>();
             service.AddScoped<IUserRepository, DAL.Repository.Dapper.UserRepository>();
             service.AddScoped<IAuthorizeRepository, DAL.Repository.Dapper.AuthorizeRepository>();
             service.AddScoped<IGroupRepository, DAL.Repository.EntityFramework.GroupRepository>();
