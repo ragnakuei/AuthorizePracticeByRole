@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
 using System.Linq;
@@ -81,37 +82,25 @@ WHERE [gr].[GroupId] = @id
             }
         }
 
-        public void Update(Group g)
+        public void Update(Group updateGroup)
         {
-            var sqlScript = @"
-UPDATE [dbo].[Group]
-SET [Name]    = @Name,
-    [Created] = @Created
-WHERE [Id] = @Id
-";
-            var parameters = new DynamicParameters();
-            parameters.Add("Id",      g.Id,         DbType.Int32);
-            parameters.Add("Name",    g.Name,       DbType.String, size : 50);
-            parameters.Add("Created", DateTime.Now, DbType.DateTime);
+            updateGroup.Created = DateTime.Now;
 
-            using (var conn = new SqlConnection(ConnectionString))
+            using (var dbContext = DbContextFactory.CreateEfDbContext())
             {
-                conn.Execute(sqlScript, parameters);
+                var groupInDb = dbContext.Groups.Find(updateGroup.Id);
+                dbContext.Entry(groupInDb).CurrentValues.SetValues(updateGroup);
+                dbContext.SaveChanges();
             }
         }
 
         public void Delete(int id)
         {
-            var sqlScript = @"
-DELETE FROM [dbo].[Group]
-WHERE Id = @id
-";
-            var parameters = new DynamicParameters();
-            parameters.Add("id", id, DbType.Int32);
-
-            using (var conn = new SqlConnection(ConnectionString))
+            using (var dbContext = DbContextFactory.CreateEfDbContext())
             {
-                conn.Execute(sqlScript, parameters);
+                var deleteGroup = dbContext.Groups.Find(id);
+                dbContext.Entry(deleteGroup).State = EntityState.Deleted;
+                dbContext.SaveChanges();
             }
         }
     }

@@ -12,7 +12,7 @@ namespace DAL.Repository.@interface
 
         void New(Group g);
 
-        void Update(Group g);
+        void Update(Group updateGroup);
 
         void Delete(int id);
     }

@@ -71,7 +71,7 @@ VALUES (@name, @created);
             }
         }
 
-        public void Update(Group g)
+        public void Update(Group updateGroup)
         {
             var sqlScript = @"
 UPDATE [dbo].[Group]
@@ -80,8 +80,8 @@ SET [Name]    = @Name,
 WHERE [Id] = @Id
 ";
             var parameters = new DynamicParameters();
-            parameters.Add("Id",      g.Id,         DbType.Int32);
-            parameters.Add("Name",    g.Name,       DbType.String, size : 50);
+            parameters.Add("Id",      updateGroup.Id,         DbType.Int32);
+            parameters.Add("Name",    updateGroup.Name,       DbType.String, size : 50);
             parameters.Add("Created", DateTime.Now, DbType.DateTime);
 
             using (var conn = new SqlConnection(ConnectionString))
