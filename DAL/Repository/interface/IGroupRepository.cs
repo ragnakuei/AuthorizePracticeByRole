@@ -6,11 +6,11 @@ namespace DAL.Repository.@interface
 {
     public interface IGroupRepository
     {
-        IEnumerable<Group> GetList();
+        Group[] GetList();
 
         GroupDetailViewModel GetDetail(int id);
 
-        void New(Group g);
+        void New(Group newGroup);
 
         void Update(Group updateGroup);
 

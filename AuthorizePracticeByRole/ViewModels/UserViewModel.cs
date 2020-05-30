@@ -5,7 +5,7 @@ namespace AuthorizePracticeByRole.ViewModels
 {
     public class UserViewModel
     {
-        public IEnumerable<Group> Users { get; set; }
+        public IList<User> Users { get; set; }
 
         public int? EditId { get; set; }
     }

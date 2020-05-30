@@ -13,39 +13,42 @@ namespace AuthorizePracticeByRole.Validators
             _groupRepository = groupRepository;
         }
 
-        public ValidateResultGroup ValidateNew(Group newGroup)
+        public ValidateGroupResult ValidateNew(Group newGroup)
         {
-            var result = new ValidateResultGroup
+            var result = new ValidateGroupResult
                          {
                              Id = new ValidateResult(),
-                             Name = new ValidateResult()
+                             Name = ValidateName(newGroup.Name)
                          };
-            ValidateName(result.Name, newGroup.Name);
             return result;
         }
 
-        private void ValidateName(ValidateResult validateResult, string name)
+        private ValidateResult ValidateName(string name)
         {
+            var result = new ValidateResult();
+            
             if (string.IsNullOrEmpty(name))
             {
-                validateResult.IsValid = false;
-                validateResult.Errors.Add("Name 不可以為空");
-                return;
+                result.IsValid = false;
+                result.Errors.Add("Name 不可以為空");
+                return result;
             }
 
             var minLength = 2;
             if (name.Length < minLength)
             {
-                validateResult.IsValid = false;
-                validateResult.Errors.Add($"Name 長度不可以小於 {minLength}");
+                result.IsValid = false;
+                result.Errors.Add($"Name 長度不可以小於 {minLength}");
             }
 
             var maxLength = 50;
             if (name.Length > maxLength)
             {
-                validateResult.IsValid = false;
-                validateResult.Errors.Add($"Name 長度不可以大於 {maxLength}");
+                result.IsValid = false;
+                result.Errors.Add($"Name 長度不可以大於 {maxLength}");
             }
+
+            return result;
         }
     }
 }

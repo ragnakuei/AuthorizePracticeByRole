@@ -5,6 +5,6 @@ namespace AuthorizePracticeByRole.Validators
 {
     public interface IGroupValidator
     {
-        ValidateResultGroup ValidateNew(Group newGroup);
+        ValidateGroupResult ValidateNew(Group newGroup);
     }
 }

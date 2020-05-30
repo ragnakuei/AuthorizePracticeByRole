@@ -1,6 +1,6 @@
 ﻿namespace SharedLibrary.Models
 {
-    public class ValidateResultGroup
+    public class ValidateGroupResult
     {
         /// <summary>
         /// 整體的驗証結果
@@ -8,6 +8,7 @@
         public bool IsValid => Id.IsValid && Name.IsValid;
 
         public ValidateResult Id   { get; set; }
+        
         public ValidateResult Name { get; set; }
     }
 }

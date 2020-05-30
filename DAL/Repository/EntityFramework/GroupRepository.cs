@@ -13,7 +13,7 @@ namespace DAL.Repository.EntityFramework
 {
     public class GroupRepository : IGroupRepository
     {
-        public IEnumerable<Group> GetList()
+        public Group[] GetList()
         {
             using (var dbContext = DbContextFactory.CreateEfDbContext())
             {
@@ -72,11 +72,11 @@ WHERE [gr].[GroupId] = @id
 
         public string ConnectionString { get; set; }
 
-        public void New(Group g)
+        public void New(Group newGroup)
         {
             using (var dbContext = DbContextFactory.CreateEfDbContext())
             {
-                dbContext.Groups.Add(g);
+                dbContext.Groups.Add(newGroup);
                 dbContext.SaveChanges();
             }
         }

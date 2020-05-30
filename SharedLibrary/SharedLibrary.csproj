@@ -91,10 +91,12 @@
     <Compile Include="Models\CustomException.cs" />
     <Compile Include="Models\GroupDetailViewModel.cs" />
     <Compile Include="Models\RoleValidateModel.cs" />
+    <Compile Include="Models\UserDetailViewModel.cs" />
     <Compile Include="Models\UserDto.cs" />
     <Compile Include="Models\ValidateResult.cs" />
-    <Compile Include="Models\ValidateResultGroup.cs" />
+    <Compile Include="Models\ValidateGroupResult.cs" />
     <Compile Include="Models\ValidateResultRole.cs" />
+    <Compile Include="Models\ValidateUserResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

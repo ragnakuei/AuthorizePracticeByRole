@@ -2,70 +2,70 @@
 @model AuthorizePracticeByRole.ViewModels.UserViewModel
 
 @{
-    ViewBag.Title = "Groups";
+    ViewBag.Title = "Users";
 }
 
-<h2>Groups</h2>
+<h2>@ViewBag.Title</h2>
 <button class="btn btn-primary"
         type="button"
         data-fancybox
         data-animation-duration="700"
-        data-src="#newGroup">
+        data-src="#newUser">
     New
 </button>
-<form method="post" id="editForm" action="@(Url.RouteUrl("Default", new { action = "Edit", controller = "Groups", id = Model.EditId }))">
+<form method="post" id="editForm" action="@(Url.RouteUrl("Default", new { action = "Edit", controller = "Users", id = Model.EditId }))">
     @Html.AntiForgeryToken()
     <table class="table">
         <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Groups.First().Id)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Groups.First().Name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Groups.First().Created)
-                </th>
-                <th>
-                    Actions
-                </th>
-            </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Users.First().Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Users.First().Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Users.First().Created)
+            </th>
+            <th>
+                Actions
+            </th>
+        </tr>
         </thead>
 
         <tbody>
-            @foreach (var item in Model.Groups)
-            {
-                <tr>
-                    @{
-                        var isEditMode = Model.EditId == item.Id;
-                    }
-                    @if (isEditMode)
-                    {
-                        @EditGroup(item)
-                    }
-                    else
-                    {
-                        @DisplayGroup(item)
-                    }
-                    <td>
-                        @GenerateEditOrCancelLink(isEditMode, item)
-                        @Html.ActionLink("Details", "Detail", new { id = item.Id }, new { @class = "btn btn-info" })
-                        @GenerateDeleteButton(item)
-                    </td>
-                </tr>
-            }
+        @foreach (var item in Model.Users)
+        {
+            <tr>
+                @{
+                    var isEditMode = Model.EditId == item.Id;
+                }
+                @if (isEditMode)
+                {
+                    @EditUser(item)
+                }
+                else
+                {
+                    @DisplayUser(item)
+                }
+                <td>
+                    @GenerateEditOrCancelLink(isEditMode, item)
+                    @Html.ActionLink("Details", "Detail", new { id = item.Id }, new { @class = "btn btn-info" })
+                    @GenerateDeleteButton(item)
+                </td>
+            </tr>
+        }
         </tbody>
     </table>
 </form>
 
-@NewGroupDiv()
+@NewUserDiv()
 
 @DeleteForm()
 
 @* ******************************************************************************************************************** *@
 
-@helper EditGroup(Group item)
+@helper EditUser(User item)
 {
     <td>
         @Html.DisplayFor(modelItem => item.Id)
@@ -79,7 +79,7 @@
     </td>
 }
 
-@helper DisplayGroup(Group item)
+@helper DisplayUser(User item)
 {
     <td>
         @Html.DisplayFor(modelItem => item.Id)
@@ -92,22 +92,34 @@
     </td>
 }
 
-@helper GenerateEditOrCancelLink(bool isEditMode, Group item)
+@helper GenerateEditOrCancelLink(bool isEditMode, User item)
 {
     if (isEditMode)
     {
         <button class="btn btn-success" type="submit">Save</button>
-        @Html.ActionLink("Cancel", "Index", new { id = (int?)null }, new { @class = "btn btn-warning" })
+        @Html.ActionLink("Cancel", "Index", new
+                                            {
+                                                id = (int?)null
+                                            }, new
+                                               {
+                                                   @class = "btn btn-warning"
+                                               })
     }
     else
     {
-        @Html.ActionLink("Edit", "Index", new { id = item.Id }, new { @class = "btn btn-primary" })
+        @Html.ActionLink("Edit", "Index", new
+                                          {
+                                              id = item.Id
+                                          }, new
+                                             {
+                                                 @class = "btn btn-primary"
+                                             })
     }
 }
 
-@helper NewGroupDiv()
+@helper NewUserDiv()
 {
-    var newGroup = new Group();
+    var newUser = new User();
 
     <style>
         .error {
@@ -121,27 +133,52 @@
         */
     </style>
 
-    <div style="display: none;" id="newGroup" class="animated-modal">
+    <div style="display: none;" id="newUser" class="animated-modal">
         <h2>New</h2>
         <form id="newForm"
               method="post"
-              action="@(Url.RouteUrl("Default", new { action = "New", controller = "Groups" }))">
+              action="@(Url.RouteUrl("Default", new { action = "New", controller = "Users" }))">
             @Html.AntiForgeryToken()
-            <div class="form-group">
-                @* @Html.LabelFor(x => newGroup.Name) *@
-                <label for="@(nameof(Group.Name))">名稱</label>
-                <input id="@(nameof(Group.Name))"
-                       name="@(nameof(Group.Name))"
-                       class="form-control" />
 
-                <label id="@(nameof(Group.Name))-error"
+            <div class="form-group">
+                <label for="@(nameof(SharedLibrary.Entities.User.Account))">帳號</label>
+                <input id="@(nameof(SharedLibrary.Entities.User.Account))"
+                       name="@(nameof(SharedLibrary.Entities.User.Account))"
+                       class="form-control"/>
+
+                <label id="@(nameof(SharedLibrary.Entities.User.Account))-error"
                        class="error"
-                       for="@(nameof(Group.Name))"
-                       style="display: none;"></label>
+                       for="@(nameof(SharedLibrary.Entities.User.Account))"
+                       style="display: none;">
+                </label>
             </div>
-            @* <div class="checkbox"> *@
-            @*     <label><input type="checkbox"> Remember me</label> *@
-            @* </div> *@
+
+            <div class="form-group">
+                <label for="@(nameof(SharedLibrary.Entities.User.Password))">密碼</label>
+                <input id="@(nameof(SharedLibrary.Entities.User.Password))"
+                       name="@(nameof(SharedLibrary.Entities.User.Password))"
+                       class="form-control"/>
+
+                <label id="@(nameof(SharedLibrary.Entities.User.Password))-error"
+                       class="error"
+                       for="@(nameof(SharedLibrary.Entities.User.Password))"
+                       style="display: none;">
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label for="@(nameof(SharedLibrary.Entities.User.Name))">名稱</label>
+                <input id="@(nameof(SharedLibrary.Entities.User.Name))"
+                       name="@(nameof(SharedLibrary.Entities.User.Name))"
+                       class="form-control"/>
+
+                <label id="@(nameof(SharedLibrary.Entities.User.Name))-error"
+                       class="error"
+                       for="@(nameof(SharedLibrary.Entities.User.Name))"
+                       style="display: none;">
+                </label>
+            </div>
+
             <button type="button"
                     id="newFormSubmit"
                     form="newForm"
@@ -154,7 +191,11 @@
     <script>
 
         window.addEventListener("load", function (event) {
-          let validateNewFormUrl = "@(Url.RouteUrl("Default", new { action = "ValidateNew", controller = "Groups" }))"
+          let validateNewFormUrl = "@(Url.RouteUrl("Default", new
+                                                              {
+                                                                  action = "ValidateNew",
+                                                                  controller = "Groups"
+                                                              }))"
 
           $("#newFormSubmit").click(function (event) {
             let formData = $("#newForm").serialize();
@@ -174,7 +215,7 @@
 {
     <form method="post" id="deleteForm" style="display: none">
         @Html.AntiForgeryToken()
-        <input id="deleteGroup" />
+        <input id="deleteGroup"/>
     </form>
 }
 
@@ -189,7 +230,11 @@
 
              $('#deleteGroup').val(id);
 
-            let deleteActionUrl = "@(Url.RouteUrl("Default", new { action = "Delete", controller = "Groups"}))";
+            let deleteActionUrl = "@(Url.RouteUrl("Default", new
+                                                             {
+                                                                 action = "Delete",
+                                                                 controller = "Groups"
+                                                             }))";
              $('#deleteForm').prop("action",deleteActionUrl + '/' + id)
                              .submit();
         }

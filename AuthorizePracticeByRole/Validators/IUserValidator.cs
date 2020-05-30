@@ -1,11 +1,10 @@
-﻿namespace AuthorizePracticeByRole.Validators
+﻿using SharedLibrary.Entities;
+using SharedLibrary.Models;
+
+namespace AuthorizePracticeByRole.Validators
 {
     public interface IUserValidator
     {
-        
-    }
-
-    public class UserValidator : IUserValidator
-    {
+        ValidateUserResult ValidateNew(User newUser);
     }
 }

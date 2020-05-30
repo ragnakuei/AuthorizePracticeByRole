@@ -12,12 +12,12 @@ namespace AuthorizePracticeByRole.Controllers.Admin
     [CustomAuthorize(RoleConst.Admin)]
     public class UsersController : BaseController
     {
-        private readonly IUserValidator  _groupValidator;
+        private readonly IUserValidator  _userValidator;
         private readonly IUserRepository _userRepository;
 
-        public UsersController(IUserValidator groupValidator, IUserRepository userRepository)
+        public UsersController(IUserValidator userValidator, IUserRepository userRepository)
         {
-            _groupValidator  = groupValidator;
+            _userValidator  = userValidator;
             _userRepository = userRepository;
         }
 
@@ -51,7 +51,7 @@ namespace AuthorizePracticeByRole.Controllers.Admin
         [ValidateAntiForgeryToken]
         public ActionResult ValidateNew(User newUser)
         {
-            var validateResult = _groupValidator.ValidateNew(newUser);
+            var validateResult = _userValidator.ValidateNew(newUser);
             return Json(validateResult);
         }
 

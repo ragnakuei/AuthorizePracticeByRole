@@ -5,7 +5,7 @@ namespace DAL.Repository.@interface
 {
     public interface IRoleRepository
     {
-        IEnumerable<Role> GetList();
+        Role[] GetList();
 
         void New(Role role);
 

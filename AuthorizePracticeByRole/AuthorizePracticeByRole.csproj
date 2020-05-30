@@ -252,6 +252,7 @@
     <Content Include="Views\Admin\Groups\Detail.cshtml" />
     <Content Include="Views\Admin\Groups\Index.cshtml" />
     <Content Include="Views\Admin\Roles\Index.cshtml" />
+    <Content Include="Views\Admin\Users\Detail.cshtml" />
     <Content Include="Views\Admin\Users\Index.cshtml" />
     <Content Include="Views\Shared\_FancyboxReference.cshtml" />
     <Content Include="Web.config" />
@@ -292,6 +293,7 @@
     <Compile Include="Validators\IRoleValidator.cs" />
     <Compile Include="Validators\IUserValidator.cs" />
     <Compile Include="Validators\RoleValidator.cs" />
+    <Compile Include="Validators\UserValidator.cs" />
     <Compile Include="ViewModels\GroupViewModel.cs" />
     <Compile Include="ViewModels\LoginForm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -12,7 +11,7 @@ namespace DAL.Repository.Dapper
 {
     public class GroupRepository : BaseRepository, IGroupRepository
     {
-        public IEnumerable<Group> GetList()
+        public Group[] GetList()
         {
             var sqlScript = @"
 SELECT *
@@ -20,7 +19,7 @@ FROM [dbo].[Group]
 ";
             using (var conn = new SqlConnection(ConnectionString))
             {
-                return conn.Query<Group>(sqlScript);
+                return conn.Query<Group>(sqlScript).ToArray();
             }
         }
 
@@ -48,23 +47,24 @@ WHERE [gr].[GroupId] = @id
             var result = new GroupDetailViewModel();
             using (var conn = new SqlConnection(ConnectionString))
             {
-                var reader =  conn.QueryMultiple(sqlScript, parameters);
-                result.Group = reader.Read<Group>().FirstOrDefault();
-                result.UserNames = reader.Read<string>();
-                result.RoleNames = reader.Read<string>();
+                var reader = conn.QueryMultiple(sqlScript, parameters);
+                result.Group     = reader.Read<Group>().FirstOrDefault();
+                result.UserNames = reader.Read<string>().ToArray();
+                result.RoleNames = reader.Read<string>().ToArray();
             }
+
             return result;
         }
 
-        public void New(Group g)
+        public void New(Group newGroup)
         {
             var sqlScript = @"
 INSERT INTO [dbo].[Group] ([Name], [Created])
 VALUES (@name, @created);
 ";
             var parameters = new DynamicParameters();
-            parameters.Add("Name",    g.Name,       DbType.String, size : 50);
-            parameters.Add("Created", DateTime.Now, DbType.DateTime);
+            parameters.Add("Name",    newGroup.Name, DbType.String, size : 50);
+            parameters.Add("Created", DateTime.Now,  DbType.DateTime);
             using (var conn = new SqlConnection(ConnectionString))
             {
                 conn.Execute(sqlScript, parameters);
@@ -80,9 +80,9 @@ SET [Name]    = @Name,
 WHERE [Id] = @Id
 ";
             var parameters = new DynamicParameters();
-            parameters.Add("Id",      updateGroup.Id,         DbType.Int32);
-            parameters.Add("Name",    updateGroup.Name,       DbType.String, size : 50);
-            parameters.Add("Created", DateTime.Now, DbType.DateTime);
+            parameters.Add("Id",      updateGroup.Id,   DbType.Int32);
+            parameters.Add("Name",    updateGroup.Name, DbType.String, size : 50);
+            parameters.Add("Created", DateTime.Now,     DbType.DateTime);
 
             using (var conn = new SqlConnection(ConnectionString))
             {

@@ -5,8 +5,10 @@ namespace SharedLibrary.Models
 {
     public class GroupDetailViewModel
     {
-        public Group  Group     { get; set; }
-        public IEnumerable<string> UserNames { get; set; }
-        public IEnumerable<string> RoleNames { get; set; }
+        public Group Group { get; set; }
+
+        public string[] UserNames { get; set; }
+
+        public string[] RoleNames { get; set; }
     }
 }

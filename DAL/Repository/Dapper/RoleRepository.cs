@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using DAL.Repository.@interface;
 using Dapper;
 using SharedLibrary.Entities;
@@ -10,7 +11,7 @@ namespace DAL.Repository.Dapper
 {
     public class RoleRepository : BaseRepository, IRoleRepository
     {
-        public IEnumerable<Role> GetList()
+        public Role[] GetList()
         {
             var sqlScript = @"
 SELECT *
@@ -18,7 +19,7 @@ FROM [dbo].[Role]
 ";
             using (var conn = new SqlConnection(ConnectionString))
             {
-                return conn.Query<Role>(sqlScript);
+                return conn.Query<Role>(sqlScript).ToArray();
             }
         }
 
