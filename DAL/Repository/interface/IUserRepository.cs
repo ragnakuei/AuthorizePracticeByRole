@@ -13,5 +13,9 @@ namespace DAL.Repository.@interface
         UserDetailViewModel GetDetail(int id);
         
         void New(User newUser);
+        
+        void Update(User updateUser);
+        
+        void Delete(int id);
     }
 }

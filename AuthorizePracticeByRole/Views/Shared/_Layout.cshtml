@@ -49,10 +49,13 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin<b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="/groups">Group</a>
+                            @Html.ActionLink("Group", "Index", "Groups")
                         </li>
                         <li>
-                            <a href="/roles">Role</a>
+                            @Html.ActionLink("Role", "Index", "Roles")
+                        </li>
+                        <li>
+                            @Html.ActionLink("User", "Index", "Users")
                         </li>
                     </ul>
                 </li>
