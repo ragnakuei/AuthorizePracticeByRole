@@ -41,6 +41,7 @@ namespace AuthorizePracticeByRole.DI
             service.AddTransient<MemberController>();
             service.AddTransient<GroupsController>();
             service.AddTransient<RolesController>();
+            service.AddTransient<UsersController>();
 
             service.AddScoped<IGroupValidator, GroupValidator>();
             service.AddScoped<IRoleValidator, RoleValidator>();
