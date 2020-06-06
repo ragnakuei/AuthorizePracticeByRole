@@ -99,5 +99,41 @@ VALUES (@account, @password, @name, @created);
                 conn.Execute(sqlScript, parameters);
             }
         }
+
+        public void Update(User updateUser)
+        {
+            var sqlScript = @"
+UPDATE [dbo].[User]
+SET [Account]  = @Account,
+    [Password] = @Password,
+    [Name]     = @Name
+WHERE [Id] = @Id
+";
+            var parameters = new DynamicParameters();
+            parameters.Add("Id",       updateUser.Id,       DbType.Int32);
+            parameters.Add("Account",  updateUser.Account,  DbType.String, size : 50);
+            parameters.Add("Password", updateUser.Password, DbType.String, size : 100);
+            parameters.Add("Name",     updateUser.Name,     DbType.String, size : 50);
+
+            using (var conn = new SqlConnection(ConnectionString))
+            {
+                conn.Execute(sqlScript, parameters);
+            }
+        }
+
+        public void Delete(int id)
+        {
+            var sqlScript = @"
+DELETE FROM [dbo].[User]
+WHERE Id = @id
+";
+            var parameters = new DynamicParameters();
+            parameters.Add("id", id, DbType.Int32);
+
+            using (var conn = new SqlConnection(ConnectionString))
+            {
+                conn.Execute(sqlScript, parameters);
+            }
+        }
     }
 }
