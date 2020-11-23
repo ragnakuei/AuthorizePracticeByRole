@@ -50,7 +50,7 @@
                     }
                     <td>
                         @GenerateEditOrCancelLink(isEditMode, item)
-                        @Html.ActionLink("Details", "Detail", new { id = item.Id }, new { @class = "btn btn-info" })
+                        @Html.ActionLink("Details", "Detail", "Groups", new { id = item.Id }, new { @class = "btn btn-info" })
                         @GenerateDeleteButton(item)
                     </td>
                 </tr>
@@ -97,11 +97,11 @@
     if (isEditMode)
     {
         <button class="btn btn-success" type="submit">Save</button>
-        @Html.ActionLink("Cancel", "Index", new { id = (int?)null }, new { @class = "btn btn-warning" })
+        @Html.ActionLink("Cancel", "Index", "Groups", new { id = (int?)null }, new { @class = "btn btn-warning" })
     }
     else
     {
-        @Html.ActionLink("Edit", "Index", new { id = item.Id }, new { @class = "btn btn-primary" })
+        @Html.ActionLink("Edit", "Index", "Groups", new { id = item.Id }, new { @class = "btn btn-primary" })
     }
 }
 

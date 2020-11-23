@@ -51,7 +51,6 @@
                 }
                 <td>
                     @GenerateEditOrCancelLink(isEditMode, item)
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-info" })
                     @GenerateDeleteButton(item)
                 </td>
             </tr>
@@ -98,7 +97,7 @@
     if (isEditMode)
     {
         <button class="btn btn-success" type="submit">Save</button>
-        @Html.ActionLink("Cancel", "Index", new
+        @Html.ActionLink("Cancel", "Index", "Roles", new
                                             {
                                                 id = (int?)null
                                             }, new
@@ -108,7 +107,7 @@
     }
     else
     {
-        @Html.ActionLink("Edit", "Index", new
+        @Html.ActionLink("Edit", "Index", "Roles",new
                                           {
                                               id = item.Id
                                           }, new
@@ -145,9 +144,9 @@
                 @Html.EditorFor(model => newRole.Name
                                 , new
                                   {
-                                      htmlAttributes = new { 
+                                      htmlAttributes = new {
                                                                @class = "form-control"
-                                                             , data_val_remote_additionalfields = "__RequestVerificationToken" 
+                                                             , data_val_remote_additionalfields = "__RequestVerificationToken"
                                                            }
                                   })
                 @Html.ValidationMessageFor(model => newRole.Name, "", new { @class = "text-danger" })
@@ -185,7 +184,7 @@
            // 設定為不在 onkeyup 就立即驗証
            onkeyup: false
         })
-        
+
         function DeleteRole(id){
             let confirmResult = confirm('確認是否刪除 RoleID: '+id+' ?');
             if(confirmResult === false)
