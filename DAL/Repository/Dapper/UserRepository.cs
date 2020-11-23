@@ -106,8 +106,7 @@ VALUES (@account, @password, @name, @created);
 UPDATE [dbo].[User]
 SET [Account]  = @Account,
     [Password] = @Password,
-    [Name]     = @Name,
-    [Created]  = @Created
+    [Name]     = @Name
 WHERE [Id] = @Id
 ";
             var parameters = new DynamicParameters();
@@ -115,7 +114,6 @@ WHERE [Id] = @Id
             parameters.Add("Account",  updateUser.Account,  DbType.String, size : 50);
             parameters.Add("Password", updateUser.Password, DbType.String, size : 100);
             parameters.Add("Name",     updateUser.Name,     DbType.String, size : 50);
-            parameters.Add("Created",  DateTime.Now,        DbType.DateTime);
 
             using (var conn = new SqlConnection(ConnectionString))
             {

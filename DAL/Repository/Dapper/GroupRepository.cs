@@ -75,8 +75,7 @@ VALUES (@name, @created);
         {
             var sqlScript = @"
 UPDATE [dbo].[Group]
-SET [Name]    = @Name,
-    [Created] = @Created
+SET [Name]    = @Name
 WHERE [Id] = @Id
 ";
             var parameters = new DynamicParameters();
